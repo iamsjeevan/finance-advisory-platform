@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -6,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight, LogIn, Mail, Lock, GitHub, Chrome } from 'lucide-react';
+import { ArrowRight, LogIn, Mail, Lock, Github, Chrome } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import MainLayout from '@/layouts/MainLayout';
 
@@ -144,7 +143,7 @@ const Login = () => {
 
                   <div className="grid grid-cols-2 gap-4">
                     <Button variant="outline" className="w-full" type="button">
-                      <GitHub className="mr-2 h-4 w-4" />
+                      <Github className="mr-2 h-4 w-4" />
                       Google
                     </Button>
                     <Button variant="outline" className="w-full" type="button">

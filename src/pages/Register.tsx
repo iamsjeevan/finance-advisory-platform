@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/components/ui/use-toast';
-import { ArrowRight, UserPlus, Mail, Lock, User, GitHub, Chrome } from 'lucide-react';
+import { ArrowRight, UserPlus, Mail, Lock, User, Github, Chrome } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 
 const Register = () => {
