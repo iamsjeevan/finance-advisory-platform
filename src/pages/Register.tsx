@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -211,11 +210,11 @@ const Register = () => {
 
                   <div className="grid grid-cols-2 gap-4">
                     <Button variant="outline" className="w-full" type="button">
-                      <GitHub className="mr-2 h-4 w-4" />
+                      <Chrome className="mr-2 h-4 w-4" />
                       Google
                     </Button>
                     <Button variant="outline" className="w-full" type="button">
-                      <Chrome className="mr-2 h-4 w-4" />
+                      <Github className="mr-2 h-4 w-4" />
                       GitHub
                     </Button>
                   </div>
