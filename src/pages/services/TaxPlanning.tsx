@@ -1,4 +1,3 @@
-
 import MainLayout from '@/layouts/MainLayout';
 import { motion } from 'framer-motion';
 import { Receipt, PercentCircle, Building, FileClock, BadgePercent, FileCheck2 } from 'lucide-react';

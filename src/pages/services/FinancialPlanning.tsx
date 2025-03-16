@@ -1,7 +1,6 @@
-
 import MainLayout from '@/layouts/MainLayout';
 import { motion } from 'framer-motion';
-import { Calendar, ChartLineUp, FileCheck, ClipboardCheck, Calculator, PiggyBank } from 'lucide-react';
+import { Calendar, ChartLine, FileCheck, ClipboardCheck, Calculator, PiggyBank } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -87,7 +86,7 @@ const FinancialPlanning = () => {
               <Card className="h-full border-border shadow-subtle hover:shadow-md transition-shadow">
                 <CardContent className="pt-6">
                   <div className="bg-finance-blue/10 rounded-full p-3 w-fit mb-4">
-                    <ChartLineUp className="h-6 w-6 text-finance-blue" />
+                    <ChartLine className="h-6 w-6 text-finance-blue" />
                   </div>
                   <h3 className="text-xl font-semibold mb-3">Wealth Management</h3>
                   <p className="text-muted-foreground mb-4">

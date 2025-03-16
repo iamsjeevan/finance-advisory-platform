@@ -1,4 +1,3 @@
-
 import MainLayout from '@/layouts/MainLayout';
 import { motion } from 'framer-motion';
 import { LineChart, Briefcase, BarChart4, PieChart, TrendingUp, BarChartHorizontal } from 'lucide-react';
