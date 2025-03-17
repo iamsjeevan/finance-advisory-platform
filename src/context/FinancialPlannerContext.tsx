@@ -31,7 +31,7 @@ const defaultFormData: FormData = {
   mediumTermGoals: '',
   longTermGoals: '',
   targetAmount: '',
-  targetDate: undefined,
+  targetDate: '',
   
   additionalComments: ''
 };

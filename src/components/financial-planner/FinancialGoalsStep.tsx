@@ -1,24 +1,14 @@
 
-import { Target, CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
+import { Target } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 import { StepComponentProps } from "@/types/financialPlanner";
 import { StepHeader } from "./StepHeader";
 
 export const FinancialGoalsStep = ({ 
   formData, 
-  handleInputChange, 
-  handleDateChange 
+  handleInputChange
 }: StepComponentProps) => {
   return (
     <div className="space-y-6">
@@ -81,31 +71,17 @@ export const FinancialGoalsStep = ({
           </div>
           
           <div>
-            <Label htmlFor="targetDate">Target Date</Label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  id="targetDate"
-                  variant="outline"
-                  className={cn(
-                    "w-full justify-start text-left font-normal mt-1",
-                    !formData.targetDate && "text-muted-foreground"
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {formData.targetDate ? format(formData.targetDate, "PPP") : <span>Pick a date</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="single"
-                  selected={formData.targetDate}
-                  onSelect={handleDateChange}
-                  initialFocus
-                  className="p-3"
-                />
-              </PopoverContent>
-            </Popover>
+            <Label htmlFor="targetDate">Target Year</Label>
+            <Input 
+              id="targetDate"
+              name="targetDate"
+              type="number"
+              min={new Date().getFullYear()}
+              max={new Date().getFullYear() + 50}
+              placeholder={new Date().getFullYear().toString()}
+              value={formData.targetDate instanceof Date ? formData.targetDate.getFullYear() : ''}
+              onChange={handleInputChange}
+            />
           </div>
         </div>
       </div>

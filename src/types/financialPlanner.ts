@@ -27,7 +27,7 @@ export interface FormData {
   mediumTermGoals: string;
   longTermGoals: string;
   targetAmount: string;
-  targetDate: Date | undefined;
+  targetDate: string | Date;
   
   additionalComments: string;
 }
