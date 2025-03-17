@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
 import Tools from "./pages/Tools";
+import AIFinancialPlanner from "./pages/AIFinancialPlanner";
 
 import FinancialPlanning from "./pages/services/FinancialPlanning";
 import InvestmentAdvisory from "./pages/services/InvestmentAdvisory";
@@ -28,11 +29,12 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/ai-financial-planner" element={<AIFinancialPlanner />} />
           <Route path="/tools" element={<Tools />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
 
-           <Route path="/services/financial-planning" element={<FinancialPlanning />} />
+          <Route path="/services/financial-planning" element={<FinancialPlanning />} />
           <Route path="/services/investment-advisory" element={<InvestmentAdvisory />} />
           <Route path="/services/tax-planning" element={<TaxPlanning />} />
 

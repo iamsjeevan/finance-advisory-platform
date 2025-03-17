@@ -45,6 +45,9 @@ const Navbar = () => {
             <Link to="/" className="text-sm font-medium text-foreground hover:text-finance-blue transition fancy-hover">
               Home
             </Link>
+            <Link to="/ai-financial-planner" className="text-sm font-medium text-foreground hover:text-finance-blue transition fancy-hover">
+              AI Financial Planner
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger className="text-sm font-medium text-foreground hover:text-finance-blue transition flex items-center space-x-1 outline-none">
                 <span>Services</span>
@@ -108,6 +111,13 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Home
+            </Link>
+            <Link 
+              to="/ai-financial-planner" 
+              className="text-base font-medium py-2 px-4 rounded-md hover:bg-muted transition"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              AI Financial Planner
             </Link>
             <details className="group">
               <summary className="text-base font-medium py-2 px-4 rounded-md hover:bg-muted transition list-none flex justify-between items-center cursor-pointer">
