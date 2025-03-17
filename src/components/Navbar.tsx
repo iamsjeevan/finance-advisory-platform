@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -65,6 +64,9 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <Link to="/news" className="text-sm font-medium text-foreground hover:text-finance-blue transition fancy-hover">
+              News
+            </Link>
             <Link to="/tools" className="text-sm font-medium text-foreground hover:text-finance-blue transition fancy-hover">
               Tools
             </Link>
@@ -151,6 +153,13 @@ const Navbar = () => {
                 </Link>
               </div>
             </details>
+            <Link 
+              to="/news" 
+              className="text-base font-medium py-2 px-4 rounded-md hover:bg-muted transition"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              News
+            </Link>
             <Link 
               to="/tools" 
               className="text-base font-medium py-2 px-4 rounded-md hover:bg-muted transition"
