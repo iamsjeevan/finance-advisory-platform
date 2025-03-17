@@ -117,23 +117,25 @@ const AIFinancialPlanner = () => {
         </div>
         
         <div className="bg-card border rounded-lg shadow-sm p-6">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <Tabs defaultValue="personal" className="w-full">
-                <TabsList className="mb-6 w-full justify-start overflow-x-auto">
-                  <TabsTrigger value="personal" className="flex items-center gap-2">
-                    <DollarSign size={16} />
-                    <span>Personal Information</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="goals" className="flex items-center gap-2">
-                    <Target size={16} />
-                    <span>Financial Goals</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="documents" className="flex items-center gap-2">
-                    <FileText size={16} />
-                    <span>Documents</span>
-                  </TabsTrigger>
-                </TabsList>
+  <Form {...form}>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <Tabs defaultValue="personal" className="w-full">
+        {/* Wrapper to prevent layout shift */}
+        <div className="overflow-hidden w-full">
+          <TabsList className="mb-4 mt-2 w-full flex flex-wrap gap-x-4 justify-start">
+            <TabsTrigger value="personal" className="flex items-center gap-2">
+              <DollarSign size={16} />
+              <span>Personal Information</span>
+            </TabsTrigger>
+            <TabsTrigger value="goals" className="flex items-center gap-2">
+              <Target size={16} />
+              <span>Financial Goals</span>
+            </TabsTrigger>
+            <TabsTrigger value="documents" className="flex items-center gap-2">
+              <FileText size={16} />
+              <span>Documents</span>
+            </TabsTrigger>
+          </TabsList>
                 
                 <TabsContent value="personal" className="space-y-6">
                   <div className="flex items-center space-x-2 mb-4">
