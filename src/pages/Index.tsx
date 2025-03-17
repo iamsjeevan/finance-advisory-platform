@@ -110,6 +110,23 @@ const Index = () => {
       {/* Hero Section */}
       <HeroSection />
 
+      {/* Navigation Tabs */}
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        <ul className="flex space-x-4">
+          <li>
+            <Link to="/" className="text-lg font-medium text-muted-foreground hover:text-finance-blue">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/news" className="text-lg font-medium text-muted-foreground hover:text-finance-blue">
+              News
+            </Link>
+          </li>
+          {/* Add other tabs here */}
+        </ul>
+      </nav>
+
       {/* Features Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
