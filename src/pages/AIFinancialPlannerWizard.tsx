@@ -710,7 +710,7 @@ const AIFinancialPlannerWizard = () => {
                             selected={formData.targetDate}
                             onSelect={handleDateChange}
                             initialFocus
-                            className={cn("p-3 pointer-events-auto")}
+                            className="p-3"
                           />
                         </PopoverContent>
                       </Popover>
