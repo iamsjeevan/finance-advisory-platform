@@ -19,7 +19,7 @@ export const FinancialGoalsStep = ({
       
       <div className="space-y-4">
         <div>
-          <Label htmlFor="shortTermGoals">Short-term Goals (< 1 year)</Label>
+          <Label htmlFor="shortTermGoals">Short-term Goals (&lt; 1 year)</Label>
           <Textarea 
             id="shortTermGoals"
             name="shortTermGoals"
