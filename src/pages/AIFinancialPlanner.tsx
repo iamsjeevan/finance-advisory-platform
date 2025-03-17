@@ -120,7 +120,7 @@ const AIFinancialPlanner = () => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <Tabs defaultValue="personal" className="w-full">
-                <TabsList className="mb-6 w-full justify-start">
+                <TabsList className="mb-6 w-full justify-start overflow-x-auto">
                   <TabsTrigger value="personal" className="flex items-center gap-2">
                     <DollarSign size={16} />
                     <span>Personal Information</span>
