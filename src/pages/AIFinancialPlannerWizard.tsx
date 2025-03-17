@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import MainLayout from "../layouts/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -32,7 +31,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Define step titles and descriptions
 const steps = [
   {
     id: 'personal',
@@ -76,19 +74,15 @@ const AIFinancialPlannerWizard = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const { toast } = useToast();
 
-  // Form state
   const [formData, setFormData] = useState({
-    // Personal Details
     fullName: '',
     age: 30,
     maritalStatus: '',
     
-    // Income Details
     primaryIncome: 3000,
     additionalIncome: '',
     salaryFrequency: '',
     
-    // Expense Details
     rent: '',
     utilities: '',
     loans: '',
@@ -97,42 +91,35 @@ const AIFinancialPlannerWizard = () => {
     hasDebt: false,
     debtDetails: '',
     
-    // Investments & Savings
     currentSavings: '',
     currentInvestments: '',
     investmentAmount: '',
     riskTolerance: 5,
     
-    // Financial Goals
     shortTermGoals: '',
     mediumTermGoals: '',
     longTermGoals: '',
     targetAmount: '',
     targetDate: undefined as Date | undefined,
     
-    // Documents & Additional Info
     additionalComments: ''
   });
   
   const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
   
-  // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
   
-  // Handle select changes
   const handleSelectChange = (name: string, value: string) => {
     setFormData(prev => ({ ...prev, [name]: value }));
     
-    // Skip spouse/dependent questions if single
     if (name === 'maritalStatus' && value === 'Single') {
-      setCurrentStep(1); // Skip to Income Details
+      setCurrentStep(1);
     }
     
-    // Skip debt questions if no debt
     if (name === 'hasDebt' && value === 'false') {
       setFormData(prev => ({ ...prev, hasDebt: false }));
     } else if (name === 'hasDebt' && value === 'true') {
@@ -140,17 +127,14 @@ const AIFinancialPlannerWizard = () => {
     }
   };
   
-  // Handle slider changes
   const handleSliderChange = (name: string, value: number[]) => {
     setFormData(prev => ({ ...prev, [name]: value[0] }));
   };
   
-  // Handle date changes
   const handleDateChange = (date: Date | undefined) => {
     setFormData(prev => ({ ...prev, targetDate: date }));
   };
   
-  // Handle file changes
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     setFileError(null);
@@ -160,7 +144,6 @@ const AIFinancialPlannerWizard = () => {
       return;
     }
     
-    // Check file type
     const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
     if (!allowedTypes.includes(selectedFile.type)) {
       setFileError("Please upload a PDF or image file (JPEG, PNG)");
@@ -168,7 +151,6 @@ const AIFinancialPlannerWizard = () => {
       return;
     }
     
-    // Check file size (max 5MB)
     if (selectedFile.size > 5 * 1024 * 1024) {
       setFileError("File size must be less than 5MB");
       setFile(null);
@@ -178,25 +160,20 @@ const AIFinancialPlannerWizard = () => {
     setFile(selectedFile);
   };
   
-  // Handle form submission
   const handleSubmit = () => {
-    // Validate required file
     if (!file) {
       setFileError("Please upload your passbook");
       return;
     }
     
-    // Here you would typically send the data to your backend
     console.log("Form data:", formData);
     console.log("File:", file);
     
-    // Show success toast
     toast({
       title: "Financial plan request submitted",
       description: "Our AI is now processing your information. We'll notify you when your personalized plan is ready.",
     });
     
-    // Reset form
     setCurrentStep(0);
     setFormData({
       fullName: '',
@@ -226,26 +203,22 @@ const AIFinancialPlannerWizard = () => {
     setFile(null);
   };
   
-  // Navigate to next step
   const nextStep = () => {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
   };
   
-  // Navigate to previous step
   const prevStep = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
   };
   
-  // Format currency value
   const formatCurrency = (value: number) => {
     return `$${value.toLocaleString()}`;
   };
   
-  // Get risk level description
   const getRiskLevel = (value: number) => {
     if (value <= 3) return "Low Risk";
     if (value <= 7) return "Medium Risk";
@@ -262,7 +235,6 @@ const AIFinancialPlannerWizard = () => {
           </p>
         </div>
         
-        {/* Progress Steps */}
         <div className="mb-8">
           <div className="hidden sm:flex items-center justify-between">
             {steps.map((step, index) => (
@@ -293,7 +265,6 @@ const AIFinancialPlannerWizard = () => {
             ))}
           </div>
           
-          {/* Mobile progress indicator */}
           <div className="sm:hidden flex items-center justify-between mb-4">
             <div className="flex items-center">
               {steps[currentStep].icon}
@@ -307,7 +278,6 @@ const AIFinancialPlannerWizard = () => {
             </div>
           </div>
           
-          {/* Progress bar */}
           <div className="w-full bg-muted h-2 rounded-full mt-2">
             <div 
               className="bg-primary h-2 rounded-full transition-all duration-300"
@@ -318,7 +288,6 @@ const AIFinancialPlannerWizard = () => {
         
         <Card className="shadow-sm">
           <CardContent className="p-6">
-            {/* Step 1: Personal Details */}
             {currentStep === 0 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-2 mb-4">
@@ -374,7 +343,6 @@ const AIFinancialPlannerWizard = () => {
               </div>
             )}
             
-            {/* Step 2: Income Details */}
             {currentStep === 1 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-2 mb-4">
@@ -434,7 +402,6 @@ const AIFinancialPlannerWizard = () => {
               </div>
             )}
             
-            {/* Step 3: Expense Details */}
             {currentStep === 2 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-2 mb-4">
@@ -557,7 +524,6 @@ const AIFinancialPlannerWizard = () => {
               </div>
             )}
             
-            {/* Step 4: Investment & Savings */}
             {currentStep === 3 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-2 mb-4">
@@ -627,7 +593,6 @@ const AIFinancialPlannerWizard = () => {
               </div>
             )}
             
-            {/* Step 5: Financial Goals */}
             {currentStep === 4 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-2 mb-4">
@@ -720,7 +685,6 @@ const AIFinancialPlannerWizard = () => {
               </div>
             )}
             
-            {/* Step 6: Documents & Additional Info */}
             {currentStep === 5 && (
               <div className="space-y-6">
                 <div className="flex items-center gap-2 mb-4">
@@ -784,7 +748,6 @@ const AIFinancialPlannerWizard = () => {
               </div>
             )}
             
-            {/* Navigation Buttons */}
             <div className="flex justify-between pt-8">
               <Button
                 type="button"
