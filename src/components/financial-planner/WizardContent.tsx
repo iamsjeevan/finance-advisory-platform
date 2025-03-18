@@ -6,6 +6,7 @@ import { ExpenseDetailsStep } from "./ExpenseDetailsStep";
 import { InvestmentsStep } from "./InvestmentsStep";
 import { FinancialGoalsStep } from "./FinancialGoalsStep";
 import { DocumentsStep } from "./DocumentsStep";
+import { PlannerResults } from "./PlannerResults";
 import { WizardNavigation } from "./WizardNavigation";
 import { useFinancialPlanner } from "@/context/FinancialPlannerContext";
 
@@ -13,6 +14,7 @@ export const WizardContent = () => {
   const { 
     currentStep, 
     formData, 
+    showResults,
     handleInputChange, 
     handleSelectChange, 
     handleSliderChange, 
@@ -30,6 +32,16 @@ export const WizardContent = () => {
     formatCurrency,
     getRiskLevel
   };
+  
+  if (showResults) {
+    return (
+      <Card className="shadow-sm">
+        <CardContent className="p-6">
+          <PlannerResults />
+        </CardContent>
+      </Card>
+    );
+  }
   
   return (
     <Card className="shadow-sm">

@@ -10,6 +10,8 @@ interface NewsContextType {
   setIsLoading: (loading: boolean) => void;
   error: string | null;
   setError: (error: string | null) => void;
+  activeFilter: string;
+  setActiveFilter: (filter: string) => void;
 }
 
 const NewsContext = createContext<NewsContextType | undefined>(undefined);
@@ -17,6 +19,7 @@ const NewsContext = createContext<NewsContextType | undefined>(undefined);
 export const NewsProvider = ({ children }: { children: ReactNode }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('global');
+  const [activeFilter, setActiveFilter] = useState('all');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -27,6 +30,8 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
         setSearchQuery,
         activeCategory,
         setActiveCategory,
+        activeFilter,
+        setActiveFilter,
         isLoading,
         setIsLoading,
         error,

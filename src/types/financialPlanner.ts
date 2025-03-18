@@ -58,12 +58,15 @@ export interface WizardContextType {
   setFileError: Dispatch<SetStateAction<string | null>>;
   currentStep: number;
   setCurrentStep: Dispatch<SetStateAction<number>>;
+  showResults: boolean;
+  setShowResults: Dispatch<SetStateAction<boolean>>;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleSelectChange: (name: string, value: string) => void;
   handleSliderChange: (name: string, value: number[]) => void;
   handleDateChange: (date: Date | undefined) => void;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => void;
+  resetForm: () => void;
   nextStep: () => void;
   prevStep: () => void;
   formatCurrency: (value: number) => string;

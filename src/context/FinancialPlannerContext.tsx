@@ -41,6 +41,7 @@ export const FinancialPlannerProvider = ({ children }: { children: ReactNode }) 
   const [currentStep, setCurrentStep] = useState(0);
   const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
+  const [showResults, setShowResults] = useState(false);
   const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -96,22 +97,28 @@ export const FinancialPlannerProvider = ({ children }: { children: ReactNode }) 
   };
   
   const handleSubmit = () => {
+    // Allow form submission even without file upload
     if (!file) {
-      setFileError("Please upload your passbook");
-      return;
+      // Just show a warning toast but continue
+      toast({
+        title: "Missing passbook upload",
+        description: "We'll generate your plan without passbook data. For a more accurate plan, consider uploading your passbook later.",
+        variant: "default"
+      });
     }
     
     console.log("Form data:", formData);
     console.log("File:", file);
     
-    toast({
-      title: "Financial plan request submitted",
-      description: "Our AI is now processing your information. We'll notify you when your personalized plan is ready.",
-    });
-    
+    // Show the results instead of just a toast
+    setShowResults(true);
+  };
+  
+  const resetForm = () => {
     setCurrentStep(0);
     setFormData(defaultFormData);
     setFile(null);
+    setShowResults(false);
   };
   
   const nextStep = () => {
@@ -145,12 +152,15 @@ export const FinancialPlannerProvider = ({ children }: { children: ReactNode }) 
     setFileError,
     currentStep,
     setCurrentStep,
+    showResults,
+    setShowResults,
     handleInputChange,
     handleSelectChange,
     handleSliderChange,
     handleDateChange,
     handleFileChange,
     handleSubmit,
+    resetForm,
     nextStep,
     prevStep,
     formatCurrency,
