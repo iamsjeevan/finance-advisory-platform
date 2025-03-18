@@ -1,5 +1,4 @@
 
-import { SentimentType } from '@/types/news';
 import { ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
 
 export const getSentimentIcon = (sentiment: string) => {

@@ -20,6 +20,9 @@ import InvestmentAdvisory from "./pages/services/InvestmentAdvisory";
 import TaxPlanning from "./pages/services/TaxPlanning";
 import { WatchlistProvider } from "./context/WatchlistContext";
 
+// Tool pages
+import RetirementCalculator from "./pages/tools/retirement-calculator";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -39,6 +42,9 @@ const App = () => (
             <Route path="/tools" element={<Tools />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+
+            {/* Tool Routes */}
+            <Route path="/tools/retirement-calculator" element={<RetirementCalculator />} />
 
             <Route path="/services/financial-planning" element={<FinancialPlanning />} />
             <Route path="/services/investment-advisory" element={<InvestmentAdvisory />} />
