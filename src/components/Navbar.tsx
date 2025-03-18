@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
@@ -47,6 +48,9 @@ const Navbar = () => {
             <Link to="/ai-financial-planner" className="text-sm font-medium text-foreground hover:text-finance-blue transition fancy-hover">
               AI Financial Planner
             </Link>
+            <Link to="/news" className="text-sm font-medium text-foreground hover:text-finance-blue transition fancy-hover">
+              News Dashboard
+            </Link>
             <DropdownMenu>
               <DropdownMenuTrigger className="text-sm font-medium text-foreground hover:text-finance-blue transition flex items-center space-x-1 outline-none">
                 <span>Services</span>
@@ -64,9 +68,6 @@ const Navbar = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Link to="/news" className="text-sm font-medium text-foreground hover:text-finance-blue transition fancy-hover">
-              News
-            </Link>
             <Link to="/tools" className="text-sm font-medium text-foreground hover:text-finance-blue transition fancy-hover">
               Tools
             </Link>
@@ -121,6 +122,13 @@ const Navbar = () => {
             >
               AI Financial Planner
             </Link>
+            <Link 
+              to="/news" 
+              className="text-base font-medium py-2 px-4 rounded-md hover:bg-muted transition"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              News Dashboard
+            </Link>
             <details className="group">
               <summary className="text-base font-medium py-2 px-4 rounded-md hover:bg-muted transition list-none flex justify-between items-center cursor-pointer">
                 <span>Services</span>
@@ -153,13 +161,6 @@ const Navbar = () => {
                 </Link>
               </div>
             </details>
-            <Link 
-              to="/news" 
-              className="text-base font-medium py-2 px-4 rounded-md hover:bg-muted transition"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              News
-            </Link>
             <Link 
               to="/tools" 
               className="text-base font-medium py-2 px-4 rounded-md hover:bg-muted transition"

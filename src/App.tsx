@@ -11,38 +11,43 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
 import Tools from "./pages/Tools";
+import News from "./pages/News";
 import AIFinancialPlanner from "./pages/AIFinancialPlanner";
 import AIFinancialPlannerWizard from "./pages/AIFinancialPlannerWizard";
 
 import FinancialPlanning from "./pages/services/FinancialPlanning";
 import InvestmentAdvisory from "./pages/services/InvestmentAdvisory";
 import TaxPlanning from "./pages/services/TaxPlanning";
+import { WatchlistProvider } from "./context/WatchlistContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/ai-financial-planner" element={<AIFinancialPlannerWizard />} />
-          <Route path="/ai-financial-planner-old" element={<AIFinancialPlanner />} />
-          <Route path="/tools" element={<Tools />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+      <WatchlistProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/ai-financial-planner" element={<AIFinancialPlannerWizard />} />
+            <Route path="/ai-financial-planner-old" element={<AIFinancialPlanner />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/tools" element={<Tools />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
 
-          <Route path="/services/financial-planning" element={<FinancialPlanning />} />
-          <Route path="/services/investment-advisory" element={<InvestmentAdvisory />} />
-          <Route path="/services/tax-planning" element={<TaxPlanning />} />
+            <Route path="/services/financial-planning" element={<FinancialPlanning />} />
+            <Route path="/services/investment-advisory" element={<InvestmentAdvisory />} />
+            <Route path="/services/tax-planning" element={<TaxPlanning />} />
 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </WatchlistProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
