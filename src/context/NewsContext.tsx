@@ -1,35 +1,38 @@
 
-import { createContext, useContext, ReactNode, useState } from 'react';
-import { NewsData, NewsItem, TrendingStock, SectorData } from '@/types/news';
-import { useFetchNews } from '@/hooks/useFetchNews';
+import { createContext, useState, useContext, ReactNode } from 'react';
 
 interface NewsContextType {
-  news: NewsData | null;
-  isLoading: boolean;
-  error: Error | null;
-  activeFilter: string;
-  setActiveFilter: (filter: string) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  activeCategory: string;
+  setActiveCategory: (category: string) => void;
+  isLoading: boolean;
+  setIsLoading: (loading: boolean) => void;
+  error: string | null;
+  setError: (error: string | null) => void;
 }
 
 const NewsContext = createContext<NewsContextType | undefined>(undefined);
 
 export const NewsProvider = ({ children }: { children: ReactNode }) => {
-  const [activeFilter, setActiveFilter] = useState('global');
   const [searchQuery, setSearchQuery] = useState('');
-  const { news, isLoading, error } = useFetchNews();
+  const [activeCategory, setActiveCategory] = useState('global');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
-    <NewsContext.Provider value={{
-      news,
-      isLoading,
-      error,
-      activeFilter,
-      setActiveFilter,
-      searchQuery,
-      setSearchQuery
-    }}>
+    <NewsContext.Provider
+      value={{
+        searchQuery,
+        setSearchQuery,
+        activeCategory,
+        setActiveCategory,
+        isLoading,
+        setIsLoading,
+        error,
+        setError
+      }}
+    >
       {children}
     </NewsContext.Provider>
   );
