@@ -2,8 +2,7 @@
 import { SectorData } from '@/types/news';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Separator } from '@/components/ui/separator';
-import { ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
+import { getSentimentIcon } from '@/utils/newsUtils';
 
 interface SectorOverviewSectionProps {
   sectors: SectorData[];
@@ -23,17 +22,6 @@ const SectorOverviewSection = ({ sectors, isLoading }: SectorOverviewSectionProp
       </div>
     );
   }
-
-  const getSentimentIcon = (sentiment: string) => {
-    switch (sentiment) {
-      case 'bullish':
-        return <ArrowUpRight className="h-4 w-4 text-green-500" />;
-      case 'bearish':
-        return <ArrowDownRight className="h-4 w-4 text-red-500" />;
-      default:
-        return <Minus className="h-4 w-4 text-gray-500" />;
-    }
-  };
 
   return (
     <div className="space-y-6">

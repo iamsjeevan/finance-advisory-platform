@@ -3,7 +3,7 @@ import { NewsItem } from '@/types/news';
 import NewsCard from '@/components/NewsCard';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
+import { getSentimentIcon, getSentimentColor } from '@/utils/newsUtils';
 
 interface FinancialNewsSectionProps {
   news: NewsItem[];
@@ -29,28 +29,6 @@ const FinancialNewsSection = ({ news, isLoading }: FinancialNewsSectionProps) =>
       </div>
     );
   }
-
-  const getSentimentIcon = (sentiment: string) => {
-    switch (sentiment) {
-      case 'bullish':
-        return <ArrowUpRight className="h-4 w-4 text-green-500" />;
-      case 'bearish':
-        return <ArrowDownRight className="h-4 w-4 text-red-500" />;
-      default:
-        return <Minus className="h-4 w-4 text-gray-500" />;
-    }
-  };
-
-  const getSentimentColor = (sentiment: string) => {
-    switch (sentiment) {
-      case 'bullish':
-        return 'bg-green-500/10 text-green-500 border-green-500/20';
-      case 'bearish':
-        return 'bg-red-500/10 text-red-500 border-red-500/20';
-      default:
-        return 'bg-gray-500/10 text-gray-500 border-gray-500/20';
-    }
-  };
 
   return (
     <div className="space-y-6">
