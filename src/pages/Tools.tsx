@@ -1,4 +1,3 @@
-
 import MainLayout from '@/layouts/MainLayout';
 import { motion } from 'framer-motion';
 import { Calculator, ChartBar, PieChart, Percent, TrendingUp, Clock } from 'lucide-react';
@@ -31,29 +30,7 @@ const Tools = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Card className="h-full border-border shadow-subtle hover:shadow-md transition-shadow">
-                <CardContent className="pt-6">
-                  <div className="bg-finance-blue/10 rounded-full p-3 w-fit mb-4">
-                    <Calculator className="h-6 w-6 text-finance-blue" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3">Retirement Calculator</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Calculate how much you need to save for retirement and track your progress 
-                    toward your retirement goals.
-                  </p>
-                  <div className="mt-auto">
-                    <Button asChild className="w-full">
-                      <Link to="/tools/retirement-calculator">Use Calculator</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
