@@ -90,7 +90,7 @@ const LoanCalculator = () => {
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 mb-6 pt-16">
           <Button variant="ghost" size="icon" asChild>
             <Link to="/tools">
               <ArrowLeft className="h-5 w-5" />
