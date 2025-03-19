@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,86 +8,35 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, LogIn, Mail, Lock, Github, Chrome } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import MainLayout from '@/layouts/MainLayout';
-import { useAuth } from '@/context/AuthContext';
-import { supabase } from '@/lib/supabase';
 
 const Login = () => {
   const { toast } = useToast();
-  const { login, isLoading: authLoading } = useAuth();
-  const navigate = useNavigate();
-  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!email || !password) {
-      toast({
-        title: "Login failed",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    try {
-      setIsLoading(true);
-      await login(email, password);
-    } catch (error) {
-      console.error('Login error:', error);
-      // Error toast will be shown by the login function
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    setIsLoading(true);
 
-  const handleGoogleLogin = async () => {
-    try {
-      setIsLoading(true);
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/dashboard`
-        }
-      });
-      
-      if (error) throw error;
-    } catch (error: any) {
-      console.error('Google login error:', error);
-      toast({
-        title: "Login failed",
-        description: error.message || "Could not log in with Google",
-        variant: "destructive",
-      });
-    } finally {
+    // Simulate login
+    setTimeout(() => {
       setIsLoading(false);
-    }
-  };
-
-  const handleGithubLogin = async () => {
-    try {
-      setIsLoading(true);
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'github',
-        options: {
-          redirectTo: `${window.location.origin}/dashboard`
-        }
-      });
       
-      if (error) throw error;
-    } catch (error: any) {
-      console.error('GitHub login error:', error);
-      toast({
-        title: "Login failed",
-        description: error.message || "Could not log in with GitHub",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+      if (email && password) {
+        toast({
+          title: "Login successful",
+          description: "Welcome back to your financial dashboard!",
+        });
+      } else {
+        toast({
+          title: "Login failed",
+          description: "Please fill in all required fields.",
+          variant: "destructive",
+        });
+      }
+    }, 1500);
   };
 
   return (
@@ -164,7 +113,7 @@ const Login = () => {
                     <Button 
                       type="submit" 
                       className="w-full"
-                      disabled={isLoading || authLoading}
+                      disabled={isLoading}
                     >
                       {isLoading ? (
                         <div className="flex items-center">
@@ -193,24 +142,12 @@ const Login = () => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <Button 
-                      variant="outline" 
-                      className="w-full" 
-                      type="button"
-                      onClick={handleGoogleLogin}
-                      disabled={isLoading}
-                    >
-                      <Chrome className="mr-2 h-4 w-4" />
+                    <Button variant="outline" className="w-full" type="button">
+                      <Github className="mr-2 h-4 w-4" />
                       Google
                     </Button>
-                    <Button 
-                      variant="outline" 
-                      className="w-full" 
-                      type="button"
-                      onClick={handleGithubLogin}
-                      disabled={isLoading}
-                    >
-                      <Github className="mr-2 h-4 w-4" />
+                    <Button variant="outline" className="w-full" type="button">
+                      <Chrome className="mr-2 h-4 w-4" />
                       GitHub
                     </Button>
                   </div>

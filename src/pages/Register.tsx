@@ -1,22 +1,16 @@
-
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/components/ui/use-toast';
-import { UserPlus, Mail, Lock, User, Github, Chrome } from 'lucide-react';
+import { ArrowRight, UserPlus, Mail, Lock, User, Github, Chrome } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
-import { useAuth } from '@/context/AuthContext';
-import { initializeFinancialData } from '@/services/financeService';
 
 const Register = () => {
   const { toast } = useToast();
-  const { register, isLoading: authLoading } = useAuth();
-  const navigate = useNavigate();
-  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,9 +25,10 @@ const Register = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setIsLoading(true);
+
     // Validate form
     if (formData.password !== formData.confirmPassword) {
       toast({
@@ -41,6 +36,7 @@ const Register = () => {
         description: "Please make sure your passwords match.",
         variant: "destructive",
       });
+      setIsLoading(false);
       return;
     }
 
@@ -50,37 +46,27 @@ const Register = () => {
         description: "Please accept our terms and conditions to continue.",
         variant: "destructive",
       });
-      return;
-    }
-    
-    if (!formData.name || !formData.email || !formData.password) {
-      toast({
-        title: "Registration failed",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    try {
-      setIsLoading(true);
-      await register(formData.name, formData.email, formData.password);
-      
-      toast({
-        title: "Registration successful",
-        description: "Your account has been created successfully!",
-      });
-      
-      navigate('/dashboard');
-    } catch (error) {
-      toast({
-        title: "Registration failed",
-        description: error instanceof Error ? error.message : "An error occurred during registration.",
-        variant: "destructive",
-      });
-    } finally {
       setIsLoading(false);
+      return;
     }
+
+    // Simulate registration
+    setTimeout(() => {
+      setIsLoading(false);
+      
+      if (formData.name && formData.email && formData.password) {
+        toast({
+          title: "Registration successful",
+          description: "Your account has been created successfully!",
+        });
+      } else {
+        toast({
+          title: "Registration failed",
+          description: "Please fill in all required fields.",
+          variant: "destructive",
+        });
+      }
+    }, 1500);
   };
 
   return (
@@ -194,7 +180,7 @@ const Register = () => {
                     <Button 
                       type="submit" 
                       className="w-full"
-                      disabled={isLoading || authLoading}
+                      disabled={isLoading}
                     >
                       {isLoading ? (
                         <div className="flex items-center">
