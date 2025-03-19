@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -10,6 +9,7 @@ import { ArrowRight, LogIn, Mail, Lock, Github, Chrome } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import MainLayout from '@/layouts/MainLayout';
 import { useAuth } from '@/context/AuthContext';
+import { supabase } from '@/lib/supabase';
 
 const Login = () => {
   const { toast } = useToast();
@@ -36,17 +36,53 @@ const Login = () => {
     try {
       setIsLoading(true);
       await login(email, password);
-      
-      toast({
-        title: "Login successful",
-        description: "Welcome back to your financial dashboard!",
+    } catch (error) {
+      console.error('Login error:', error);
+      // Error toast will be shown by the login function
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`
+        }
       });
       
-      navigate('/dashboard');
-    } catch (error) {
+      if (error) throw error;
+    } catch (error: any) {
+      console.error('Google login error:', error);
       toast({
         title: "Login failed",
-        description: error instanceof Error ? error.message : "An error occurred during login.",
+        description: error.message || "Could not log in with Google",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGithubLogin = async () => {
+    try {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`
+        }
+      });
+      
+      if (error) throw error;
+    } catch (error: any) {
+      console.error('GitHub login error:', error);
+      toast({
+        title: "Login failed",
+        description: error.message || "Could not log in with GitHub",
         variant: "destructive",
       });
     } finally {
@@ -157,12 +193,24 @@ const Login = () => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <Button variant="outline" className="w-full" type="button">
-                      <Github className="mr-2 h-4 w-4" />
+                    <Button 
+                      variant="outline" 
+                      className="w-full" 
+                      type="button"
+                      onClick={handleGoogleLogin}
+                      disabled={isLoading}
+                    >
+                      <Chrome className="mr-2 h-4 w-4" />
                       Google
                     </Button>
-                    <Button variant="outline" className="w-full" type="button">
-                      <Chrome className="mr-2 h-4 w-4" />
+                    <Button 
+                      variant="outline" 
+                      className="w-full" 
+                      type="button"
+                      onClick={handleGithubLogin}
+                      disabled={isLoading}
+                    >
+                      <Github className="mr-2 h-4 w-4" />
                       GitHub
                     </Button>
                   </div>
