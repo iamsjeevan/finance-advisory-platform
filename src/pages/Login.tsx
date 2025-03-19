@@ -1,5 +1,6 @@
+
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,35 +9,49 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, LogIn, Mail, Lock, Github, Chrome } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import MainLayout from '@/layouts/MainLayout';
+import { useAuth } from '@/context/AuthContext';
 
 const Login = () => {
   const { toast } = useToast();
+  const { login, isLoading: authLoading } = useAuth();
+  const navigate = useNavigate();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    // Simulate login
-    setTimeout(() => {
-      setIsLoading(false);
+    
+    if (!email || !password) {
+      toast({
+        title: "Login failed",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    try {
+      setIsLoading(true);
+      await login(email, password);
       
-      if (email && password) {
-        toast({
-          title: "Login successful",
-          description: "Welcome back to your financial dashboard!",
-        });
-      } else {
-        toast({
-          title: "Login failed",
-          description: "Please fill in all required fields.",
-          variant: "destructive",
-        });
-      }
-    }, 1500);
+      toast({
+        title: "Login successful",
+        description: "Welcome back to your financial dashboard!",
+      });
+      
+      navigate('/dashboard');
+    } catch (error) {
+      toast({
+        title: "Login failed",
+        description: error instanceof Error ? error.message : "An error occurred during login.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -113,7 +128,7 @@ const Login = () => {
                     <Button 
                       type="submit" 
                       className="w-full"
-                      disabled={isLoading}
+                      disabled={isLoading || authLoading}
                     >
                       {isLoading ? (
                         <div className="flex items-center">
