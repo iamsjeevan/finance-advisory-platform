@@ -1,5 +1,5 @@
 
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from './components/ui/toaster';
 import Index from './pages/Index';
 import About from './pages/About';
@@ -24,39 +24,44 @@ import Dashboard from './pages/Dashboard';
 import { NewsProvider } from './context/NewsContext';
 import { AuthProvider } from './context/AuthContext';
 import { WatchlistProvider } from './context/WatchlistContext';
+import { DatabaseProvider } from './context/DatabaseContext';
 
 import './App.css';
 
 const App = () => {
   return (
-    <AuthProvider>
-      <NewsProvider>
-        <WatchlistProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/ai-financial-planner" element={<AIFinancialPlanner />} />
-            <Route path="/ai-financial-planner-wizard" element={<AIFinancialPlannerWizard />} />
-            <Route path="/tools" element={<Tools />} />
-            <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
-            <Route path="/tools/investment-calculator" element={<InvestmentCalculator />} />
-            <Route path="/tools/budget-planner" element={<BudgetPlanner />} />
-            <Route path="/tools/net-worth-tracker" element={<NetWorthTracker />} />
-            <Route path="/tools/goal-planner" element={<GoalPlanner />} />
-            <Route path="/services/financial-planning" element={<FinancialPlanning />} />
-            <Route path="/services/investment-advisory" element={<InvestmentAdvisory />} />
-            <Route path="/services/tax-planning" element={<TaxPlanning />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Toaster />
-        </WatchlistProvider>
-      </NewsProvider>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <DatabaseProvider>
+          <NewsProvider>
+            <WatchlistProvider>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/news" element={<News />} />
+                <Route path="/ai-financial-planner" element={<AIFinancialPlanner />} />
+                <Route path="/ai-financial-planner-wizard" element={<AIFinancialPlannerWizard />} />
+                <Route path="/tools" element={<Tools />} />
+                <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
+                <Route path="/tools/investment-calculator" element={<InvestmentCalculator />} />
+                <Route path="/tools/budget-planner" element={<BudgetPlanner />} />
+                <Route path="/tools/net-worth-tracker" element={<NetWorthTracker />} />
+                <Route path="/tools/goal-planner" element={<GoalPlanner />} />
+                <Route path="/services/financial-planning" element={<FinancialPlanning />} />
+                <Route path="/services/investment-advisory" element={<InvestmentAdvisory />} />
+                <Route path="/services/tax-planning" element={<TaxPlanning />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <Toaster />
+            </WatchlistProvider>
+          </NewsProvider>
+        </DatabaseProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 
