@@ -148,15 +148,19 @@ const LoanCalculator = () => {
                       
                       <div className="space-y-2">
                         <label className="text-sm font-medium">Interest Rate (%)</label>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-5">
                           <Slider 
-                            value={[form.watch('interestRate')]} 
-                            min={0.1} 
-                            max={20} 
+                            id="interestRate"
+                            min={0.1}
+                            max={20}
                             step={0.1}
+                            defaultValue={[form.watch('interestRate')]}
                             onValueChange={(value) => form.setValue('interestRate', value[0])}
-                            className="flex-1"
-                          />
+                            showValue
+                            formatValue={(value) => `${value} percent`}
+                            style={{ width: '280px' }}
+                            className='flex-1'
+                            />
                           <span className="text-sm font-medium w-10 text-right">{form.watch('interestRate')}%</span>
                         </div>
                       </div>
@@ -165,15 +169,19 @@ const LoanCalculator = () => {
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <label className="text-sm font-medium">Loan Term (years)</label>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-1">
                           <Slider 
-                            value={[form.watch('loanTerm')]} 
-                            min={1} 
-                            max={30} 
+                            id="Loan Term"
+                            min={1}
+                            max={30}
                             step={1}
+                            defaultValue={[form.watch('loanTerm')]}
                             onValueChange={(value) => form.setValue('loanTerm', value[0])}
-                            className="flex-1"
-                          />
+                            showValue
+                            formatValue={(value) => `${value} years`}
+                            style={{ width: '280px' }}
+                            className='flex-1'
+                            />
                           <span className="text-sm font-medium w-10 text-right">{form.watch('loanTerm')}</span>
                         </div>
                       </div>

@@ -176,15 +176,19 @@ const InvestmentCalculator = () => {
                     <div className="space-y-4">
                       <div className="space-y-2">
                         <label className="text-sm font-medium">Investment Period (years)</label>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2">
                           <Slider 
-                            value={[form.watch('investmentPeriod')]} 
-                            min={1} 
-                            max={40} 
+                            id="investmentPeriod"
+                            min={1}
+                            max={40}
                             step={1}
+                            defaultValue={[form.watch('investmentPeriod')]}
                             onValueChange={(value) => form.setValue('investmentPeriod', value[0])}
-                            className="flex-1"
-                          />
+                            showValue
+                            formatValue={(value) => `${value} years`}
+                            style={{ width: '280px' }}
+                            className='flex-1'
+                            />
                           <span className="text-sm font-medium w-10 text-right">{form.watch('investmentPeriod')}</span>
                         </div>
                       </div>
@@ -193,13 +197,17 @@ const InvestmentCalculator = () => {
                         <label className="text-sm font-medium">Expected Annual Return (%)</label>
                         <div className="flex items-center gap-4">
                           <Slider 
-                            value={[form.watch('expectedReturn')]} 
-                            min={1} 
-                            max={15} 
-                            step={0.1}
+                            id="expectedReturn"
+                            min={1}
+                            max={30}
+                            step={1}
+                            defaultValue={[form.watch('expectedReturn')]}
                             onValueChange={(value) => form.setValue('expectedReturn', value[0])}
-                            className="flex-1"
-                          />
+                            showValue
+                            formatValue={(value) => `${value} percent`}
+                            style={{ width: '280px' }}
+                            className='flex-1'
+                            />
                           <span className="text-sm font-medium w-12 text-right">{form.watch('expectedReturn')}%</span>
                         </div>
                       </div>
