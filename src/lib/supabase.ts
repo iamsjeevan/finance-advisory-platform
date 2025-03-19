@@ -1,9 +1,9 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-// Public keys that can be exposed in the client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+// Use the values directly from the Supabase project
+const supabaseUrl = "https://kcrvytvtygpoxcbetlsg.supabase.co";
+const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtjcnZ5dHZ0eWdwb3hjYmV0bHNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDIzOTUzMjQsImV4cCI6MjA1Nzk3MTMyNH0.QtidZkNZOVblnJ3xRPMSvrjT9iTRmuU8RpstsWkRnYw";
 
 // Create the Supabase client
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
