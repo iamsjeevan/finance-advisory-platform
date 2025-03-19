@@ -1,9 +1,32 @@
+import { useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { motion } from 'framer-motion';
 import { Calculator, ChartBar, PieChart, Percent, TrendingUp, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+
+const TruncatedParagraph = ({ text }: { text: string }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div>
+      <p
+        className={`text-muted-foreground mb-4 ${
+          isExpanded ? '' : 'line-clamp-2'
+        }`}
+      >
+        {text}
+      </p>
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="text-finance-blue font-medium hover:underline"
+      >
+        {isExpanded ? 'Show Less' : 'Read More'}
+      </button>
+    </div>
+  );
+};
 
 const Tools = () => {
   return (
@@ -30,8 +53,6 @@ const Tools = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -43,10 +64,9 @@ const Tools = () => {
                     <Percent className="h-6 w-6 text-finance-blue" />
                   </div>
                   <h3 className="text-xl font-semibold mb-3">Loan Calculator</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Calculate monthly payments, total interest, and overall cost for different 
-                    loan types and terms.
-                  </p>
+                  <TruncatedParagraph
+                    text="Calculate monthly payments, total interest, and overall cost for different loan types and terms."
+                  />
                   <div className="mt-auto">
                     <Button asChild className="w-full">
                       <Link to="/tools/loan-calculator">Use Calculator</Link>
@@ -67,10 +87,9 @@ const Tools = () => {
                     <ChartBar className="h-6 w-6 text-finance-blue" />
                   </div>
                   <h3 className="text-xl font-semibold mb-3">Investment Calculator</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Forecast investment growth with different contribution amounts, rates of return, 
-                    and time horizons.
-                  </p>
+                  <TruncatedParagraph
+                    text="Forecast investment growth with different contribution amounts, rates of return, and time horizons."
+                  />
                   <div className="mt-auto">
                     <Button asChild className="w-full">
                       <Link to="/tools/investment-calculator">Use Calculator</Link>
@@ -91,10 +110,9 @@ const Tools = () => {
                     <PieChart className="h-6 w-6 text-finance-blue" />
                   </div>
                   <h3 className="text-xl font-semibold mb-3">Budget Planner</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Create a personalized budget plan based on your income, expenses, and 
-                    financial goals.
-                  </p>
+                  <TruncatedParagraph
+                    text="Create a personalized budget plan based on your income, expenses, and financial goals."
+                  />
                   <div className="mt-auto">
                     <Button asChild className="w-full">
                       <Link to="/tools/budget-planner">Use Calculator</Link>
@@ -115,10 +133,9 @@ const Tools = () => {
                     <TrendingUp className="h-6 w-6 text-finance-blue" />
                   </div>
                   <h3 className="text-xl font-semibold mb-3">Net Worth Tracker</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Calculate and track your net worth over time to measure your financial 
-                    progress and wealth building.
-                  </p>
+                  <TruncatedParagraph
+                    text="Calculate and track your net worth over time to measure your financial progress and wealth building."
+                  />
                   <div className="mt-auto">
                     <Button asChild className="w-full">
                       <Link to="/tools/net-worth-tracker">Use Tool</Link>
@@ -139,10 +156,9 @@ const Tools = () => {
                     <Clock className="h-6 w-6 text-finance-blue" />
                   </div>
                   <h3 className="text-xl font-semibold mb-3">Financial Goal Planner</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Set financial goals and create a personalized plan to achieve them 
-                    with timeline projections.
-                  </p>
+                  <TruncatedParagraph
+                    text="Set financial goals and create a personalized plan to achieve them with timeline projections."
+                  />
                   <div className="mt-auto">
                     <Button asChild className="w-full">
                       <Link to="/tools/goal-planner">Use Tool</Link>
