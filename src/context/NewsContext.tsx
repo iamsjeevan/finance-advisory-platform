@@ -1,5 +1,7 @@
 
 import { createContext, useState, useContext, ReactNode } from 'react';
+import { useFetchNews } from '@/hooks/useFetchNews';
+import { NewsData } from '@/types/news';
 
 interface NewsContextType {
   searchQuery: string;
@@ -12,6 +14,7 @@ interface NewsContextType {
   setError: (error: string | null) => void;
   activeFilter: string;
   setActiveFilter: (filter: string) => void;
+  news: NewsData | null;
 }
 
 const NewsContext = createContext<NewsContextType | undefined>(undefined);
@@ -19,9 +22,20 @@ const NewsContext = createContext<NewsContextType | undefined>(undefined);
 export const NewsProvider = ({ children }: { children: ReactNode }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('global');
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeFilter, setActiveFilter] = useState('global');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Use the hook to fetch news data
+  const { news, isLoading: newsLoading, error: newsError } = useFetchNews();
+  
+  // Update the context loading and error states based on the fetched data
+  useState(() => {
+    setIsLoading(newsLoading);
+    if (newsError) {
+      setError(newsError);
+    }
+  });
 
   return (
     <NewsContext.Provider
@@ -32,10 +46,11 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
         setActiveCategory,
         activeFilter,
         setActiveFilter,
-        isLoading,
+        isLoading: newsLoading, // Use the loading state from useFetchNews
         setIsLoading,
-        error,
-        setError
+        error: newsError, // Use the error state from useFetchNews
+        setError,
+        news
       }}
     >
       {children}
