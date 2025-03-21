@@ -52,10 +52,10 @@ const Navbar = () => {
               News Dashboard
             </Link>
             <DropdownMenu>
-              <DropdownMenuTrigger className="text-sm font-medium text-foreground hover:text-finance-blue transition flex items-center space-x-1 outline-none">
+              {/* <DropdownMenuTrigger className="text-sm font-medium text-foreground hover:text-finance-blue transition flex items-center space-x-1 outline-none">
                 <span>Services</span>
                 <ChevronDown size={16} />
-              </DropdownMenuTrigger>
+              </DropdownMenuTrigger> */}
               <DropdownMenuContent className="w-56 animate-scale-in">
                 <DropdownMenuItem className="cursor-pointer" asChild>
                   <Link to="/services/financial-planning">Financial Planning</Link>
