@@ -1,5 +1,5 @@
 
-import { createContext, useState, useContext, ReactNode, useCallback } from 'react';
+import { createContext, useState, useContext, ReactNode, useCallback, useEffect } from 'react';
 import { useFetchNews } from '@/hooks/useFetchNews';
 import { NewsData } from '@/types/news';
 import { fetchNews } from '@/utils/newsAPI';
@@ -33,7 +33,7 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
   const { news: initialNews, isLoading: initialLoading, error: initialError } = useFetchNews();
   
   // Set initial news data when it's available
-  useState(() => {
+  useEffect(() => {
     if (initialNews && !newsData) {
       setNewsData(initialNews);
     }
@@ -41,7 +41,7 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
     if (initialError) {
       setError(initialError);
     }
-  });
+  }, [initialNews, initialLoading, initialError, newsData]);
 
   // Function to manually refresh news data
   const refreshNews = useCallback(async () => {
