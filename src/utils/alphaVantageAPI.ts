@@ -1,9 +1,7 @@
-
 import { toast } from "sonner";
 
-// Alpha Vantage API key - in a real app, this should be handled more securely
-// For demo purposes, we're using a hardcoded key
-const ALPHA_VANTAGE_API_KEY = "demo";
+// Alpha Vantage API key
+const ALPHA_VANTAGE_API_KEY = "M6N4JMMF4KTQOVEN";
 
 export interface StockData {
   date: string;
