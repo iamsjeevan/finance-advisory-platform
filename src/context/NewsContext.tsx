@@ -1,7 +1,8 @@
 
-import { createContext, useState, useContext, ReactNode } from 'react';
+import { createContext, useState, useContext, ReactNode, useCallback } from 'react';
 import { useFetchNews } from '@/hooks/useFetchNews';
 import { NewsData } from '@/types/news';
+import { fetchNews } from '@/utils/newsAPI';
 
 interface NewsContextType {
   searchQuery: string;
@@ -15,6 +16,7 @@ interface NewsContextType {
   activeFilter: string;
   setActiveFilter: (filter: string) => void;
   news: NewsData | null;
+  refreshNews: () => Promise<void>;
 }
 
 const NewsContext = createContext<NewsContextType | undefined>(undefined);
@@ -25,17 +27,35 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
   const [activeFilter, setActiveFilter] = useState('global');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [newsData, setNewsData] = useState<NewsData | null>(null);
   
-  // Use the hook to fetch news data
-  const { news, isLoading: newsLoading, error: newsError } = useFetchNews();
+  // Use the hook to fetch initial news data
+  const { news: initialNews, isLoading: initialLoading, error: initialError } = useFetchNews();
   
-  // Update the context loading and error states based on the fetched data
+  // Set initial news data when it's available
   useState(() => {
-    setIsLoading(newsLoading);
-    if (newsError) {
-      setError(newsError);
+    if (initialNews && !newsData) {
+      setNewsData(initialNews);
+    }
+    setIsLoading(initialLoading);
+    if (initialError) {
+      setError(initialError);
     }
   });
+
+  // Function to manually refresh news data
+  const refreshNews = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const freshNews = await fetchNews();
+      setNewsData(freshNews);
+      setError(null);
+    } catch (err) {
+      setError('Failed to refresh news data');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   return (
     <NewsContext.Provider
@@ -46,11 +66,12 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
         setActiveCategory,
         activeFilter,
         setActiveFilter,
-        isLoading: newsLoading, // Use the loading state from useFetchNews
+        isLoading,
         setIsLoading,
-        error: newsError, // Use the error state from useFetchNews
+        error,
         setError,
-        news
+        news: newsData || initialNews,
+        refreshNews
       }}
     >
       {children}
