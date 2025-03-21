@@ -1,5 +1,6 @@
+
 import { toast } from "sonner";
-import { NewsData, NewsItem } from "@/types/news";
+import { NewsData, NewsItem, SentimentType } from "@/types/news";
 
 // NewsAPI.ai API key
 const NEWS_API_KEY = "84dc6045-11ce-405c-b2a0-fe46cd6280c0";
@@ -147,7 +148,7 @@ export const fetchNews = async (): Promise<NewsData> => {
 };
 
 // Helper function to convert sentiment score to sentiment label
-function getSentimentLabel(score: number): 'bullish' | 'bearish' | 'neutral' {
+function getSentimentLabel(score: number): SentimentType {
   if (score > 0.2) return 'bullish';
   if (score < -0.2) return 'bearish';
   return 'neutral';
@@ -262,22 +263,22 @@ function getMockNewsData(): NewsData {
 function getMockStocksAndSectors() {
   return {
     trendingStocks: [
-      { symbol: 'NVDA', name: 'NVIDIA Corporation', change: 4.28, sentiment: 'bullish', headlines: ['NVIDIA Showcases New AI Chips', 'Analysts Raise NVIDIA Price Targets'] },
-      { symbol: 'AAPL', name: 'Apple Inc.', change: -1.53, sentiment: 'bearish', headlines: ['Apple Supplier Reports Production Delays', 'iPhone 15 Demand Concerns Emerge'] },
-      { symbol: 'TSLA', name: 'Tesla Inc.', change: 2.76, sentiment: 'bullish', headlines: ['Tesla Announces Battery Production Expansion', 'Tesla Deliveries Expected to Beat Estimates'] },
-      { symbol: 'META', name: 'Meta Platforms Inc.', change: 1.15, sentiment: 'bullish', headlines: ['Meta Reports Strong Ad Revenue Growth', 'Horizon Worlds Sees User Increase'] },
-      { symbol: 'AMZN', name: 'Amazon.com Inc.', change: 0.25, sentiment: 'neutral', headlines: ['Amazon Warehouse Expansion', 'AWS Growth Slows Slightly'] },
-      { symbol: 'MSFT', name: 'Microsoft Corp.', change: 0.87, sentiment: 'bullish', headlines: ['Microsoft Azure Growth Exceeds Expectations', 'New Windows Features Announced'] },
-      { symbol: 'GOOGL', name: 'Alphabet Inc.', change: -0.32, sentiment: 'neutral', headlines: ['Google Ad Revenue Steady', 'Antitrust Concerns Persist'] },
-      { symbol: 'JPM', name: 'JPMorgan Chase & Co.', change: -1.28, sentiment: 'bearish', headlines: ['Banking Sector Faces Pressure', 'Interest Rate Uncertainty Impacts Outlook'] },
-      { symbol: 'DIS', name: 'Walt Disney Co.', change: 3.42, sentiment: 'bullish', headlines: ['Disney+ Subscriber Growth Accelerates', 'Parks Revenue Sets New Record'] },
-      { symbol: 'NFLX', name: 'Netflix Inc.', change: 1.75, sentiment: 'bullish', headlines: ['Netflix Ad Tier Gaining Traction', 'Original Content Driving Engagement'] },
+      { symbol: 'NVDA', name: 'NVIDIA Corporation', change: 4.28, sentiment: 'bullish' as SentimentType, headlines: ['NVIDIA Showcases New AI Chips', 'Analysts Raise NVIDIA Price Targets'] },
+      { symbol: 'AAPL', name: 'Apple Inc.', change: -1.53, sentiment: 'bearish' as SentimentType, headlines: ['Apple Supplier Reports Production Delays', 'iPhone 15 Demand Concerns Emerge'] },
+      { symbol: 'TSLA', name: 'Tesla Inc.', change: 2.76, sentiment: 'bullish' as SentimentType, headlines: ['Tesla Announces Battery Production Expansion', 'Tesla Deliveries Expected to Beat Estimates'] },
+      { symbol: 'META', name: 'Meta Platforms Inc.', change: 1.15, sentiment: 'bullish' as SentimentType, headlines: ['Meta Reports Strong Ad Revenue Growth', 'Horizon Worlds Sees User Increase'] },
+      { symbol: 'AMZN', name: 'Amazon.com Inc.', change: 0.25, sentiment: 'neutral' as SentimentType, headlines: ['Amazon Warehouse Expansion', 'AWS Growth Slows Slightly'] },
+      { symbol: 'MSFT', name: 'Microsoft Corp.', change: 0.87, sentiment: 'bullish' as SentimentType, headlines: ['Microsoft Azure Growth Exceeds Expectations', 'New Windows Features Announced'] },
+      { symbol: 'GOOGL', name: 'Alphabet Inc.', change: -0.32, sentiment: 'neutral' as SentimentType, headlines: ['Google Ad Revenue Steady', 'Antitrust Concerns Persist'] },
+      { symbol: 'JPM', name: 'JPMorgan Chase & Co.', change: -1.28, sentiment: 'bearish' as SentimentType, headlines: ['Banking Sector Faces Pressure', 'Interest Rate Uncertainty Impacts Outlook'] },
+      { symbol: 'DIS', name: 'Walt Disney Co.', change: 3.42, sentiment: 'bullish' as SentimentType, headlines: ['Disney+ Subscriber Growth Accelerates', 'Parks Revenue Sets New Record'] },
+      { symbol: 'NFLX', name: 'Netflix Inc.', change: 1.75, sentiment: 'bullish' as SentimentType, headlines: ['Netflix Ad Tier Gaining Traction', 'Original Content Driving Engagement'] },
     ],
     sectors: [
       {
         name: 'Technology',
         change: 2.3,
-        sentiment: 'bullish',
+        sentiment: 'bullish' as SentimentType,
         topStocks: [
           { symbol: 'NVDA', name: 'NVIDIA Corporation', change: 4.28 },
           { symbol: 'AAPL', name: 'Apple Inc.', change: -1.53 },
@@ -287,7 +288,7 @@ function getMockStocksAndSectors() {
       {
         name: 'Healthcare',
         change: 0.8,
-        sentiment: 'neutral',
+        sentiment: 'neutral' as SentimentType,
         topStocks: [
           { symbol: 'JNJ', name: 'Johnson & Johnson', change: 0.45 },
           { symbol: 'PFE', name: 'Pfizer Inc.', change: -0.75 },
@@ -297,7 +298,7 @@ function getMockStocksAndSectors() {
       {
         name: 'Energy',
         change: -1.5,
-        sentiment: 'bearish',
+        sentiment: 'bearish' as SentimentType,
         topStocks: [
           { symbol: 'XOM', name: 'Exxon Mobil Corp.', change: -1.63 },
           { symbol: 'CVX', name: 'Chevron Corporation', change: -2.15 },
@@ -307,7 +308,7 @@ function getMockStocksAndSectors() {
       {
         name: 'Finance',
         change: -0.7,
-        sentiment: 'neutral',
+        sentiment: 'neutral' as SentimentType,
         topStocks: [
           { symbol: 'JPM', name: 'JPMorgan Chase & Co.', change: -1.28 },
           { symbol: 'BAC', name: 'Bank of America Corp.', change: -0.95 },
