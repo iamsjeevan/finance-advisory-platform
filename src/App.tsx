@@ -4,12 +4,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "@/context/AuthContext";
+import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Index from "./pages/Index";
-import Login from "./pages/Login";
+import Auth from "./pages/Auth";
+import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
-import Register from "./pages/Register";
 import Tools from "./pages/Tools";
 import News from "./pages/News";
 import AIFinancialPlanner from "./pages/AIFinancialPlanner";
@@ -31,38 +33,51 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <WatchlistProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/ai-financial-planner" element={<AIFinancialPlannerWizard />} />
-            <Route path="/ai-financial-planner-old" element={<AIFinancialPlanner />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/tools" element={<Tools />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+    <AuthProvider>
+      <TooltipProvider>
+        <WatchlistProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              
+              {/* Protected Routes */}
+              <Route path="/ai-financial-planner" element={
+                <ProtectedRoute>
+                  <AIFinancialPlannerWizard />
+                </ProtectedRoute>
+              } />
+              <Route path="/ai-financial-planner-old" element={
+                <ProtectedRoute>
+                  <AIFinancialPlanner />
+                </ProtectedRoute>
+              } />
+              
+              <Route path="/news" element={<News />} />
+              <Route path="/tools" element={<Tools />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
 
-            {/* Tool Routes */}
-            <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
-            <Route path="/tools/investment-calculator" element={<InvestmentCalculator />} />
-            <Route path="/tools/budget-planner" element={<BudgetPlanner />} />
-            <Route path="/tools/net-worth-tracker" element={<NetWorthTracker />} />
-            <Route path="/tools/goal-planner" element={<GoalPlanner />} />
+              {/* Tool Routes */}
+              <Route path="/tools/loan-calculator" element={<LoanCalculator />} />
+              <Route path="/tools/investment-calculator" element={<InvestmentCalculator />} />
+              <Route path="/tools/budget-planner" element={<BudgetPlanner />} />
+              <Route path="/tools/net-worth-tracker" element={<NetWorthTracker />} />
+              <Route path="/tools/goal-planner" element={<GoalPlanner />} />
 
-            <Route path="/services/financial-planning" element={<FinancialPlanning />} />
-            <Route path="/services/investment-advisory" element={<InvestmentAdvisory />} />
-            <Route path="/services/tax-planning" element={<TaxPlanning />} />
+              <Route path="/services/financial-planning" element={<FinancialPlanning />} />
+              <Route path="/services/investment-advisory" element={<InvestmentAdvisory />} />
+              <Route path="/services/tax-planning" element={<TaxPlanning />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </WatchlistProvider>
-    </TooltipProvider>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </WatchlistProvider>
+      </TooltipProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 
