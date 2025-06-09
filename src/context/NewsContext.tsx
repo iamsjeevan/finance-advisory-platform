@@ -1,6 +1,5 @@
 
 import { createContext, useState, useContext, ReactNode, useCallback, useEffect } from 'react';
-import { useFetchNews } from '@/hooks/useFetchNews';
 import { NewsData } from '@/types/news';
 import { fetchNews } from '@/utils/newsAPI';
 
@@ -17,6 +16,7 @@ interface NewsContextType {
   setActiveFilter: (filter: string) => void;
   news: NewsData | null;
   refreshNews: () => Promise<void>;
+  searchNews: (query: string) => Promise<void>;
 }
 
 const NewsContext = createContext<NewsContextType | undefined>(undefined);
@@ -29,33 +29,29 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
   const [newsData, setNewsData] = useState<NewsData | null>(null);
   
-  // Use the hook to fetch initial news data
-  const { news: initialNews, isLoading: initialLoading, error: initialError } = useFetchNews();
-  
-  // Set initial news data when it's available
-  useEffect(() => {
-    if (initialNews && !newsData) {
-      setNewsData(initialNews);
-    }
-    setIsLoading(initialLoading);
-    if (initialError) {
-      setError(initialError);
-    }
-  }, [initialNews, initialLoading, initialError, newsData]);
-
-  // Function to manually refresh news data
-  const refreshNews = useCallback(async () => {
+  // Function to fetch news with a specific query
+  const searchNews = useCallback(async (query: string = 'technology') => {
     setIsLoading(true);
+    setError(null);
     try {
-      const freshNews = await fetchNews();
+      const freshNews = await fetchNews(query);
       setNewsData(freshNews);
-      setError(null);
     } catch (err) {
-      setError('Failed to refresh news data');
+      setError('Failed to fetch news data');
     } finally {
       setIsLoading(false);
     }
   }, []);
+
+  // Function to manually refresh news data
+  const refreshNews = useCallback(async () => {
+    await searchNews(searchQuery || 'technology');
+  }, [searchNews, searchQuery]);
+
+  // Load initial news data
+  useEffect(() => {
+    searchNews('technology');
+  }, [searchNews]);
 
   return (
     <NewsContext.Provider
@@ -70,8 +66,9 @@ export const NewsProvider = ({ children }: { children: ReactNode }) => {
         setIsLoading,
         error,
         setError,
-        news: newsData || initialNews,
-        refreshNews
+        news: newsData,
+        refreshNews,
+        searchNews
       }}
     >
       {children}
