@@ -1,4 +1,3 @@
-
 import { 
   BarChart, 
   DollarSign, 
@@ -12,38 +11,38 @@ import { WizardStep } from "@/types/financialPlanner";
 export const WIZARD_STEPS: WizardStep[] = [
   {
     id: 'personal',
-    title: 'Personal Details',
+    title: 'Personal',
     description: 'Tell us about yourself',
     icon: <Home className="h-5 w-5" />
   },
   {
     id: 'income',
-    title: 'Income Details',
+    title: 'Income',
     description: 'Your monthly earnings',
     icon: <DollarSign className="h-5 w-5" />
   },
   {
     id: 'expenses',
-    title: 'Expense Details',
+    title: 'Expenses',
     description: 'Your monthly spending',
     icon: <BarChart className="h-5 w-5" />
   },
   {
     id: 'investments',
-    title: 'Investment & Savings',
+    title: 'Investments',
     description: 'Your financial assets',
     icon: <PiggyBank className="h-5 w-5" />
   },
   {
     id: 'goals',
-    title: 'Financial Goals',
+    title: 'Goals',
     description: 'What you want to achieve',
     icon: <Target className="h-5 w-5" />
   },
   {
     id: 'documents',
-    title: 'Documents & Information',
-    description: 'Additional details that help us',
+    title: 'Documents',
+    description: 'Additional details',
     icon: <FileText className="h-5 w-5" />
   }
 ];

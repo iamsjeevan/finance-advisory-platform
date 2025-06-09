@@ -1,36 +1,36 @@
-
 import { createContext, ReactNode, useContext, useState } from "react";
 import { FormData, WizardContextType } from "../types/financialPlanner";
 import { useToast } from "@/hooks/use-toast";
+import { WIZARD_STEPS } from "@/constants/financialPlannerSteps";
 
 const FinancialPlannerContext = createContext<WizardContextType | undefined>(undefined);
 
 const defaultFormData: FormData = {
   fullName: '',
   age: 30,
-  maritalStatus: '',
+  maritalStatus: 'Single',
   
-  primaryIncome: 3000,
-  additionalIncome: '',
-  salaryFrequency: '',
+  primaryIncome: 5000,
+  additionalIncome: '0',
+  salaryFrequency: 'Monthly',
   
-  rent: '',
-  utilities: '',
-  loans: '',
-  groceries: '',
-  entertainment: '',
+  rent: '1500',
+  utilities: '250',
+  loans: '300',
+  groceries: '400',
+  entertainment: '150',
   hasDebt: false,
   debtDetails: '',
   
-  currentSavings: '',
+  currentSavings: '10000',
   currentInvestments: '',
-  investmentAmount: '',
+  investmentAmount: '500',
   riskTolerance: 5,
   
   shortTermGoals: '',
   mediumTermGoals: '',
   longTermGoals: '',
-  targetAmount: '',
+  targetAmount: '25000',
   targetDate: '',
   
   additionalComments: ''
@@ -50,17 +50,11 @@ export const FinancialPlannerProvider = ({ children }: { children: ReactNode }) 
   };
   
   const handleSelectChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    if (name === 'maritalStatus' && value === 'Single') {
-      setCurrentStep(1);
-    }
-    
-    if (name === 'hasDebt' && value === 'false') {
-      setFormData(prev => ({ ...prev, hasDebt: false }));
-    } else if (name === 'hasDebt' && value === 'true') {
-      setFormData(prev => ({ ...prev, hasDebt: true }));
-    }
+    const isBool = value === 'true' || value === 'false';
+    setFormData(prev => ({ 
+      ...prev, 
+      [name]: isBool ? (value === 'true') : value 
+    }));
   };
   
   const handleSliderChange = (name: string, value: number[]) => {
@@ -68,50 +62,30 @@ export const FinancialPlannerProvider = ({ children }: { children: ReactNode }) 
   };
   
   const handleDateChange = (date: Date | undefined) => {
-    setFormData(prev => ({ ...prev, targetDate: date }));
+    setFormData(prev => ({ ...prev, targetDate: date || '' }));
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     setFileError(null);
-    
     if (!selectedFile) {
       setFile(null);
       return;
     }
-    
-    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-    if (!allowedTypes.includes(selectedFile.type)) {
-      setFileError("Please upload a PDF or image file (JPEG, PNG)");
-      setFile(null);
-      return;
-    }
-    
     if (selectedFile.size > 5 * 1024 * 1024) {
       setFileError("File size must be less than 5MB");
-      setFile(null);
       return;
     }
-    
     setFile(selectedFile);
   };
   
   const handleSubmit = () => {
-    // Allow form submission even without file upload
-    if (!file) {
-      // Just show a warning toast but continue
-      toast({
-        title: "Missing passbook upload",
-        description: "We'll generate your plan without passbook data. For a more accurate plan, consider uploading your passbook later.",
-        variant: "default"
-      });
-    }
-    
-    console.log("Form data:", formData);
-    console.log("File:", file);
-    
-    // Show the results instead of just a toast
+    console.log("Final Form Data Submitted:", formData);
     setShowResults(true);
+    toast({
+      title: "Summary Generated",
+      description: "Review your financial information below.",
+    });
   };
   
   const resetForm = () => {
@@ -122,7 +96,7 @@ export const FinancialPlannerProvider = ({ children }: { children: ReactNode }) 
   };
   
   const nextStep = () => {
-    if (currentStep < 5) {
+    if (currentStep < WIZARD_STEPS.length - 1) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -134,37 +108,26 @@ export const FinancialPlannerProvider = ({ children }: { children: ReactNode }) 
   };
   
   const formatCurrency = (value: number) => {
-    return `$${value.toLocaleString()}`;
+    return `$${Number(value || 0).toLocaleString()}`;
   };
   
   const getRiskLevel = (value: number) => {
-    if (value <= 3) return "Low Risk";
-    if (value <= 7) return "Medium Risk";
-    return "High Risk";
+    if (value <= 3) return "Low";
+    if (value <= 7) return "Medium";
+    return "High";
   };
 
   const value: WizardContextType = {
-    formData,
-    setFormData,
-    file,
-    setFile,
-    fileError,
-    setFileError,
-    currentStep,
-    setCurrentStep,
-    showResults,
-    setShowResults,
-    handleInputChange,
-    handleSelectChange,
-    handleSliderChange,
-    handleDateChange,
-    handleFileChange,
-    handleSubmit,
-    resetForm,
-    nextStep,
-    prevStep,
-    formatCurrency,
-    getRiskLevel
+    formData, setFormData,
+    file, setFile,
+    fileError, setFileError,
+    currentStep, setCurrentStep,
+    showResults, setShowResults,
+    handleInputChange, handleSelectChange, handleSliderChange,
+    handleDateChange, handleFileChange,
+    handleSubmit, resetForm,
+    nextStep, prevStep,
+    formatCurrency, getRiskLevel
   };
 
   return (

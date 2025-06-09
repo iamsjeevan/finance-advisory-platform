@@ -1,4 +1,3 @@
-
 import { Card, CardContent } from "@/components/ui/card";
 import { PersonalDetailsStep } from "./PersonalDetailsStep";
 import { IncomeDetailsStep } from "./IncomeDetailsStep";
@@ -11,48 +10,28 @@ import { WizardNavigation } from "./WizardNavigation";
 import { useFinancialPlanner } from "@/context/FinancialPlannerContext";
 
 export const WizardContent = () => {
-  const { 
-    currentStep, 
-    formData, 
-    showResults,
-    handleInputChange, 
-    handleSelectChange, 
-    handleSliderChange, 
-    handleDateChange,
-    formatCurrency,
-    getRiskLevel
-  } = useFinancialPlanner();
+  const { currentStep, showResults, ...stepProps } = useFinancialPlanner();
   
-  const stepProps = {
-    formData,
-    handleInputChange,
-    handleSelectChange,
-    handleSliderChange,
-    handleDateChange,
-    formatCurrency,
-    getRiskLevel
+  const renderStep = () => {
+    switch (currentStep) {
+      case 0: return <PersonalDetailsStep {...stepProps} />;
+      case 1: return <IncomeDetailsStep {...stepProps} />;
+      case 2: return <ExpenseDetailsStep {...stepProps} />;
+      case 3: return <InvestmentsStep {...stepProps} />;
+      case 4: return <FinancialGoalsStep {...stepProps} />;
+      case 5: return <DocumentsStep {...stepProps} />;
+      default: return <PersonalDetailsStep {...stepProps} />;
+    }
   };
-  
+
   if (showResults) {
-    return (
-      <Card className="shadow-sm">
-        <CardContent className="p-6">
-          <PlannerResults />
-        </CardContent>
-      </Card>
-    );
+    return <PlannerResults />;
   }
   
   return (
     <Card className="shadow-sm">
-      <CardContent className="p-6">
-        {currentStep === 0 && <PersonalDetailsStep {...stepProps} />}
-        {currentStep === 1 && <IncomeDetailsStep {...stepProps} />}
-        {currentStep === 2 && <ExpenseDetailsStep {...stepProps} />}
-        {currentStep === 3 && <InvestmentsStep {...stepProps} />}
-        {currentStep === 4 && <FinancialGoalsStep {...stepProps} />}
-        {currentStep === 5 && <DocumentsStep {...stepProps} />}
-        
+      <CardContent className="p-6 md:p-8">
+        {renderStep()}
         <WizardNavigation />
       </CardContent>
     </Card>

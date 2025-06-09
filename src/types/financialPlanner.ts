@@ -1,15 +1,17 @@
-
 import { Dispatch, SetStateAction } from "react";
 
 export interface FormData {
+  // Personal
   fullName: string;
   age: number;
   maritalStatus: string;
   
+  // Income
   primaryIncome: number;
   additionalIncome: string;
   salaryFrequency: string;
   
+  // Expenses
   rent: string;
   utilities: string;
   loans: string;
@@ -18,17 +20,20 @@ export interface FormData {
   hasDebt: boolean;
   debtDetails: string;
   
+  // Investments
   currentSavings: string;
   currentInvestments: string;
   investmentAmount: string;
   riskTolerance: number;
   
+  // Goals
   shortTermGoals: string;
   mediumTermGoals: string;
   longTermGoals: string;
   targetAmount: string;
   targetDate: string | Date;
   
+  // Documents
   additionalComments: string;
 }
 
