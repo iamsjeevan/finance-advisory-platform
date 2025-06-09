@@ -1,37 +1,41 @@
+// src/components/news/NewsTabs.tsx
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import GlobalNewsSection from './GlobalNewsSection';
 import FinancialNewsSection from './FinancialNewsSection';
 import TrendingStocksSection from './TrendingStocksSection';
 import SectorOverviewSection from './SectorOverviewSection';
-import { useNews } from '@/context/NewsContext';
+import { NewsData } from '@/types/news';
 
-const NewsTabs = () => {
-  const { news, isLoading, activeFilter, setActiveFilter } = useNews();
+interface NewsTabsProps {
+  newsData?: NewsData | null;
+  isLoading: boolean;
+}
 
+const NewsTabs = ({ newsData, isLoading }: NewsTabsProps) => {
   return (
-    <Tabs defaultValue={activeFilter} onValueChange={setActiveFilter} className="w-full">
-      <TabsList className="grid grid-cols-4 mb-6">
-        <TabsTrigger value="global">Global</TabsTrigger>
+    <Tabs defaultValue="financial" className="w-full">
+      <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-6">
         <TabsTrigger value="financial">Financial</TabsTrigger>
+        <TabsTrigger value="global">Global</TabsTrigger>
         <TabsTrigger value="trending">Trending</TabsTrigger>
         <TabsTrigger value="sectors">Sectors</TabsTrigger>
       </TabsList>
       
-      <TabsContent value="global" className="mt-0">
-        <GlobalNewsSection news={news?.global || []} isLoading={isLoading} />
+      <TabsContent value="financial" className="mt-0">
+        <FinancialNewsSection news={newsData?.financial || []} isLoading={isLoading} />
       </TabsContent>
       
-      <TabsContent value="financial" className="mt-0">
-        <FinancialNewsSection news={news?.financial || []} isLoading={isLoading} />
+      <TabsContent value="global" className="mt-0">
+        <GlobalNewsSection news={newsData?.global || []} isLoading={isLoading} />
       </TabsContent>
       
       <TabsContent value="trending" className="mt-0">
-        <TrendingStocksSection stocks={news?.trendingStocks || []} isLoading={isLoading} />
+        <TrendingStocksSection stocks={newsData?.trendingStocks || []} isLoading={isLoading} />
       </TabsContent>
       
       <TabsContent value="sectors" className="mt-0">
-        <SectorOverviewSection sectors={news?.sectors || []} isLoading={isLoading} />
+        <SectorOverviewSection sectors={newsData?.sectors || []} isLoading={isLoading} />
       </TabsContent>
     </Tabs>
   );
