@@ -20,6 +20,11 @@ const Navbar = () => {
     { name: 'Contact', href: '/contact' },
   ];
 
+  // Add Dashboard to navigation if user is logged in
+  if (user) {
+    navigation.splice(1, 0, { name: 'Dashboard', href: '/dashboard' });
+  }
+
   const isActive = (path: string) => {
     return location.pathname === path;
   };
@@ -55,10 +60,10 @@ const Navbar = () => {
               <UserMenu />
             ) : (
               <div className="flex items-center space-x-4">
-                <Link to="/auth">
+                <Link to="/login">
                   <Button variant="ghost">Sign In</Button>
                 </Link>
-                <Link to="/auth">
+                <Link to="/register">
                   <Button>Get Started</Button>
                 </Link>
               </div>
@@ -101,12 +106,12 @@ const Navbar = () => {
                 </div>
               ) : (
                 <div className="px-3 py-2 space-y-2">
-                  <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Link to="/login" onClick={() => setIsOpen(false)}>
                     <Button variant="ghost" className="w-full justify-start">
                       Sign In
                     </Button>
                   </Link>
-                  <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Link to="/register" onClick={() => setIsOpen(false)}>
                     <Button className="w-full">Get Started</Button>
                   </Link>
                 </div>

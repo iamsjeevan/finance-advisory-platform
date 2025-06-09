@@ -1,13 +1,20 @@
-
 import HeroSection from '@/components/HeroSection';
 import FeatureCard from '@/components/FeatureCard';
 import TestimonialCard from '@/components/TestimonialCard';
 import { Calculator, TrendingUp, Shield, Users, BarChart3, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import MainLayout from '@/layouts/MainLayout';
+import { useAuth } from '@/context/AuthContext';
 
 const Index = () => {
+  const { user, loading } = useAuth();
+
+  // If user is logged in, redirect to dashboard
+  if (!loading && user) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   const features = [
     {
       icon: <Calculator className="h-6 w-6" />,
@@ -99,7 +106,7 @@ const Index = () => {
             Join thousands of users who are already making smarter financial decisions with our platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/auth">
+            <Link to="/register">
               <Button size="lg" variant="secondary" className="min-w-[200px]">
                 Get Started Free
               </Button>
