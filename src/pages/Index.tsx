@@ -10,32 +10,32 @@ import MainLayout from '@/layouts/MainLayout';
 const Index = () => {
   const features = [
     {
-      icon: Calculator,
+      icon: <Calculator className="h-6 w-6" />,
       title: "Financial Calculators",
       description: "Comprehensive tools for loan calculations, investment planning, and budget tracking."
     },
     {
-      icon: TrendingUp,
+      icon: <TrendingUp className="h-6 w-6" />,
       title: "Investment Tracking",
       description: "Monitor your portfolio performance with real-time market data and analytics."
     },
     {
-      icon: Shield,
+      icon: <Shield className="h-6 w-6" />,
       title: "Secure & Private",
       description: "Your financial data is protected with bank-level security and encryption."
     },
     {
-      icon: Users,
+      icon: <Users className="h-6 w-6" />,
       title: "Expert Guidance",
       description: "Access to financial advisors and personalized recommendations."
     },
     {
-      icon: BarChart3,
+      icon: <BarChart3 className="h-6 w-6" />,
       title: "Advanced Analytics",
       description: "Detailed insights and reports to help you make informed financial decisions."
     },
     {
-      icon: Target,
+      icon: <Target className="h-6 w-6" />,
       title: "Goal Planning",
       description: "Set and track your financial goals with our intelligent planning tools."
     }
@@ -43,22 +43,25 @@ const Index = () => {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
+      quote: "This platform transformed how I manage my business finances. The calculators are incredibly accurate and easy to use.",
+      author: "Sarah Johnson",
       role: "Small Business Owner",
-      content: "This platform transformed how I manage my business finances. The calculators are incredibly accurate and easy to use.",
-      avatar: "/placeholder.svg"
+      rating: 5,
+      image: "/placeholder.svg"
     },
     {
-      name: "Michael Chen",
+      quote: "The investment tracking features are top-notch. I can monitor all my portfolios in one place with real-time updates.",
+      author: "Michael Chen",
       role: "Investment Analyst",
-      content: "The investment tracking features are top-notch. I can monitor all my portfolios in one place with real-time updates.",
-      avatar: "/placeholder.svg"
+      rating: 5,
+      image: "/placeholder.svg"
     },
     {
-      name: "Emily Rodriguez",
+      quote: "I recommend this tool to all my clients. The budget planning features have helped them achieve their financial goals faster.",
+      author: "Emily Rodriguez",
       role: "Financial Planner",
-      content: "I recommend this tool to all my clients. The budget planning features have helped them achieve their financial goals faster.",
-      avatar: "/placeholder.svg"
+      rating: 5,
+      image: "/placeholder.svg"
     }
   ];
 
