@@ -11,7 +11,7 @@ interface WatchlistStockItemProps {
 const WatchlistStockItem = ({ symbol, watchlistId, onRemove }: WatchlistStockItemProps) => {
   return (
     <div className="flex justify-between items-center p-2 hover:bg-muted rounded-md">
-      <span className="font-mono font-medium">${symbol}</span>
+      <span className="font-mono font-medium">{symbol}</span>
       <Button 
         variant="ghost" 
         size="sm" 

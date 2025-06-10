@@ -95,7 +95,7 @@ const WatchlistPanel = () => {
                 
                 <div className="flex gap-2 mb-3">
                   <Input
-                    placeholder="Add symbol (e.g., AAPL)"
+                    placeholder="Add symbol (e.g., TCS, INFY)"
                     value={activeWatchlist === wl.id ? newSymbol : ''}
                     onChange={(e) => setNewSymbol(e.target.value.toUpperCase())}
                     className="w-full"

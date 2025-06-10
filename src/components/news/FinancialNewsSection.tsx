@@ -48,7 +48,7 @@ const FinancialNewsSection = ({ news, isLoading }: FinancialNewsSectionProps) =>
               <div className="absolute top-4 right-4 flex gap-2">
                 {item.tickers.map((ticker) => (
                   <Badge key={ticker} variant="outline" className="bg-background/80 backdrop-blur-sm">
-                    ${ticker}
+                    {ticker}
                   </Badge>
                 ))}
               </div>

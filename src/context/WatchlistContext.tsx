@@ -2,22 +2,22 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
 import { Watchlist, WatchlistContextType } from '@/types/news';
 
-// Initial watchlists
+// Initial watchlists with Indian/Bangalore-based companies
 const INITIAL_WATCHLISTS: Watchlist[] = [
   {
     id: '1',
     name: 'Tech Stocks',
-    stocks: ['AAPL', 'MSFT', 'GOOGL', 'META', 'AMZN']
+    stocks: ['TCS', 'INFY', 'WIPRO', 'HCLTECH', 'TECHM']
   },
   {
     id: '2',
-    name: 'Energy Sector',
-    stocks: ['XOM', 'CVX', 'COP', 'BP', 'SLB']
+    name: 'Banking Sector',
+    stocks: ['HDFCBANK', 'ICICIBANK', 'SBIN', 'KOTAKBANK', 'AXISBANK']
   },
   {
     id: '3',
-    name: 'Crypto',
-    stocks: ['BTC', 'ETH', 'SOL', 'ADA', 'DOT']
+    name: 'Large Cap',
+    stocks: ['RELIANCE', 'TCS', 'HDFCBANK', 'BHARTIARTL', 'ITC']
   }
 ];
 
