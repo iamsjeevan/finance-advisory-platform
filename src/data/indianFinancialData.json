@@ -1,0 +1,175 @@
+
+{
+  "stocks": {
+    "largeCap": [
+      {
+        "name": "Reliance Industries Ltd",
+        "symbol": "RELIANCE",
+        "price": 2845.30,
+        "change": "+1.2%",
+        "sector": "Oil & Gas"
+      },
+      {
+        "name": "Tata Consultancy Services",
+        "symbol": "TCS",
+        "price": 3567.80,
+        "change": "+0.8%",
+        "sector": "IT Services"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "symbol": "HDFCBANK",
+        "price": 1634.25,
+        "change": "-0.3%",
+        "sector": "Banking"
+      },
+      {
+        "name": "Infosys Ltd",
+        "symbol": "INFY",
+        "price": 1789.60,
+        "change": "+1.5%",
+        "sector": "IT Services"
+      }
+    ],
+    "midCap": [
+      {
+        "name": "Bajaj Finance Ltd",
+        "symbol": "BAJFINANCE",
+        "price": 6234.15,
+        "change": "+2.1%",
+        "sector": "Financial Services"
+      },
+      {
+        "name": "SBI Life Insurance",
+        "symbol": "SBILIFE",
+        "price": 1456.70,
+        "change": "+1.8%",
+        "sector": "Insurance"
+      },
+      {
+        "name": "Pidilite Industries",
+        "symbol": "PIDILITIND",
+        "price": 2987.45,
+        "change": "+0.9%",
+        "sector": "Chemicals"
+      }
+    ],
+    "smallCap": [
+      {
+        "name": "Tanla Platforms Ltd",
+        "symbol": "TANLA",
+        "price": 789.30,
+        "change": "+3.2%",
+        "sector": "Technology"
+      },
+      {
+        "name": "Clean Science Technology",
+        "symbol": "CLEAN",
+        "price": 1234.80,
+        "change": "+2.8%",
+        "sector": "Chemicals"
+      },
+      {
+        "name": "Nazara Technologies",
+        "symbol": "NAZARA",
+        "price": 567.90,
+        "change": "+4.1%",
+        "sector": "Gaming"
+      }
+    ]
+  },
+  "mutualFunds": {
+    "equity": [
+      {
+        "name": "SBI Bluechip Fund",
+        "category": "Large Cap",
+        "nav": 67.45,
+        "returns1y": "12.8%",
+        "returns3y": "15.2%",
+        "riskLevel": "Moderate"
+      },
+      {
+        "name": "HDFC Mid-Cap Opportunities Fund",
+        "category": "Mid Cap",
+        "nav": 89.23,
+        "returns1y": "18.7%",
+        "returns3y": "19.4%",
+        "riskLevel": "High"
+      },
+      {
+        "name": "Axis Small Cap Fund",
+        "category": "Small Cap",
+        "nav": 45.67,
+        "returns1y": "25.3%",
+        "returns3y": "22.1%",
+        "riskLevel": "Very High"
+      }
+    ],
+    "debt": [
+      {
+        "name": "HDFC Corporate Bond Fund",
+        "category": "Corporate Bond",
+        "nav": 23.45,
+        "returns1y": "7.2%",
+        "returns3y": "8.1%",
+        "riskLevel": "Low"
+      },
+      {
+        "name": "SBI Magnum Gilt Fund",
+        "category": "Gilt",
+        "nav": 34.78,
+        "returns1y": "6.8%",
+        "returns3y": "7.9%",
+        "riskLevel": "Low"
+      },
+      {
+        "name": "ICICI Prudential FMP",
+        "category": "Fixed Maturity",
+        "nav": 12.34,
+        "returns1y": "6.5%",
+        "returns3y": "7.2%",
+        "riskLevel": "Very Low"
+      }
+    ]
+  },
+  "gold": [
+    {
+      "type": "Physical Gold",
+      "rate": "₹6,245 per gram",
+      "change": "+0.8%",
+      "description": "24K Gold"
+    },
+    {
+      "type": "Gold ETF",
+      "rate": "₹5,234 per unit",
+      "change": "+0.6%",
+      "description": "SBI Gold ETF"
+    },
+    {
+      "type": "Gold Mutual Fund",
+      "rate": "₹18.45 NAV",
+      "change": "+0.7%",
+      "description": "HDFC Gold Fund"
+    }
+  ],
+  "fixedDeposits": [
+    {
+      "bank": "SBI",
+      "rate": "6.8%",
+      "tenure": "1-2 years",
+      "minAmount": "₹1,000"
+    },
+    {
+      "bank": "HDFC Bank",
+      "rate": "7.0%",
+      "tenure": "2-3 years",
+      "minAmount": "₹10,000"
+    },
+    {
+      "bank": "ICICI Bank",
+      "rate": "6.9%",
+      "tenure": "1-5 years",
+      "minAmount": "₹5,000"
+    }
+  ]
+}

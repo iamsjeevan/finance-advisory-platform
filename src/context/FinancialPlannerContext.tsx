@@ -10,27 +10,27 @@ const defaultFormData: FormData = {
   age: 30,
   maritalStatus: 'Single',
   
-  primaryIncome: 5000,
+  primaryIncome: 50000,  // Changed to Indian amount
   additionalIncome: '0',
   salaryFrequency: 'Monthly',
   
-  rent: '1500',
-  utilities: '250',
-  loans: '300',
-  groceries: '400',
-  entertainment: '150',
+  rent: '15000',         // Changed to Indian amount
+  utilities: '2500',     // Changed to Indian amount
+  loans: '8000',         // Changed to Indian amount
+  groceries: '6000',     // Changed to Indian amount
+  entertainment: '3000', // Changed to Indian amount
   hasDebt: false,
   debtDetails: '',
   
-  currentSavings: '10000',
+  currentSavings: '200000',    // Changed to Indian amount
   currentInvestments: '',
-  investmentAmount: '500',
+  investmentAmount: '10000',   // Changed to Indian amount
   riskTolerance: 5,
   
   shortTermGoals: '',
   mediumTermGoals: '',
   longTermGoals: '',
-  targetAmount: '25000',
+  targetAmount: '500000',      // Changed to Indian amount
   targetDate: '',
   
   additionalComments: ''
@@ -108,7 +108,12 @@ export const FinancialPlannerProvider = ({ children }: { children: ReactNode }) 
   };
   
   const formatCurrency = (value: number) => {
-    return `$${Number(value || 0).toLocaleString()}`;
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(value || 0);
   };
   
   const getRiskLevel = (value: number) => {
