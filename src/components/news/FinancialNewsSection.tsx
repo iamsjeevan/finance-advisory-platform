@@ -33,14 +33,16 @@ const FinancialNewsSection = ({ news, isLoading }: FinancialNewsSectionProps) =>
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Indian Financial Market News</h2>
-        <Badge variant="outline" className="bg-orange-500/10 text-orange-600 border-orange-500/20">
-          🇮🇳 India Focus
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Global Financial Markets
+        </h2>
+        <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20 font-semibold">
+          🌍 Worldwide Markets
         </Badge>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {news.map((item) => (
-          <div key={item.id} className="relative">
+          <div key={item.id} className="relative group">
             <NewsCard
               title={item.title}
               excerpt={item.excerpt}
@@ -50,18 +52,18 @@ const FinancialNewsSection = ({ news, isLoading }: FinancialNewsSectionProps) =>
               url={item.url}
             />
             {item.tickers && item.tickers.length > 0 && (
-              <div className="absolute top-4 right-4 flex gap-2">
+              <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 {item.tickers.map((ticker) => (
-                  <Badge key={ticker} variant="outline" className="bg-background/80 backdrop-blur-sm font-mono">
+                  <Badge key={ticker} variant="outline" className="bg-background/90 backdrop-blur-sm font-mono text-xs font-bold shadow-sm">
                     {ticker}
                   </Badge>
                 ))}
               </div>
             )}
             <div className="absolute top-4 left-4">
-              <Badge variant="outline" className={`flex items-center gap-1 ${getSentimentColor(item.sentiment)}`}>
+              <Badge variant="outline" className={`flex items-center gap-1 font-medium ${getSentimentColor(item.sentiment)} shadow-sm`}>
                 {getSentimentIcon(item.sentiment)}
-                <span className="capitalize">{item.sentiment}</span>
+                <span className="capitalize text-xs">{item.sentiment}</span>
               </Badge>
             </div>
           </div>

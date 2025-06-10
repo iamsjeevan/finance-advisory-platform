@@ -32,22 +32,25 @@ const GlobalNewsSection = ({ news, isLoading }: GlobalNewsSectionProps) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Indian Economic & Global News</h2>
-        <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20">
-          🌏 Global + India
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+          Global Economic News
+        </h2>
+        <Badge variant="outline" className="bg-green-500/10 text-green-600 border-green-500/20 font-semibold">
+          🌏 International Economics
         </Badge>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {news.map((item) => (
-          <NewsCard
-            key={item.id}
-            title={item.title}
-            excerpt={item.excerpt}
-            category={item.category}
-            date={item.date}
-            image={item.image}
-            url={item.url}
-          />
+          <div key={item.id} className="group">
+            <NewsCard
+              title={item.title}
+              excerpt={item.excerpt}
+              category={item.category}
+              date={item.date}
+              image={item.image}
+              url={item.url}
+            />
+          </div>
         ))}
       </div>
     </div>

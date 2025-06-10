@@ -17,7 +17,7 @@ const processFinnhubArticles = (articles: any[], category: string): NewsItem[] =
     title: article.headline || 'No headline available',
     excerpt: article.summary || article.headline?.substring(0, 150) + '...' || 'No description available.',
     category: category,
-    date: new Date(article.datetime * 1000).toLocaleDateString('en-IN', { 
+    date: new Date(article.datetime * 1000).toLocaleDateString('en-US', { 
       month: 'short', 
       day: 'numeric', 
       year: 'numeric' 
@@ -26,21 +26,24 @@ const processFinnhubArticles = (articles: any[], category: string): NewsItem[] =
     image: article.image || '/og-image.png',
     url: article.url || '#',
     sentiment: getRandomSentiment(),
-    tickers: extractIndianTickers(article.headline || ''),
+    tickers: extractGlobalTickers(article.headline || ''),
   }));
 };
 
-// Extract Indian stock tickers from headlines
-const extractIndianTickers = (text: string): string[] => {
-  const indianStocks = [
+// Extract global stock tickers from headlines
+const extractGlobalTickers = (text: string): string[] => {
+  const globalStocks = [
+    // US Stocks
+    'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NFLX', 'NVDA', 'JPM', 'BAC',
+    // Indian Stocks
     'TCS', 'INFY', 'WIPRO', 'HCLTECH', 'TECHM', 'RELIANCE', 'HDFCBANK', 
     'ICICIBANK', 'SBIN', 'KOTAKBANK', 'AXISBANK', 'BHARTIARTL', 'ITC',
-    'HINDUNILVR', 'LT', 'ULTRACEMCO', 'MARUTI', 'ASIANPAINT', 'NESTLEIND',
-    'BAJFINANCE', 'POWERGRID', 'NTPC', 'ONGC', 'COALINDIA'
+    // European Stocks
+    'ASML', 'SAP', 'NESN', 'NOVN', 'ROCHE'
   ];
   
   const matches = text.toUpperCase().match(/\b([A-Z]{2,12})\b/g) || [];
-  return matches.filter(ticker => indianStocks.includes(ticker)).slice(0, 3);
+  return matches.filter(ticker => globalStocks.includes(ticker)).slice(0, 3);
 };
 
 // Fetch general market news from Finnhub
@@ -57,7 +60,7 @@ const fetchFinnhubGeneralNews = async (): Promise<NewsItem[]> => {
     return processFinnhubArticles(data, "Global Economy");
   } catch (error) {
     console.error('Error fetching Finnhub general news:', error);
-    return getIndianMockNewsData().global;
+    return getGlobalMockNewsData().global;
   }
 };
 
@@ -72,10 +75,10 @@ const fetchFinnhubFinancialNews = async (): Promise<NewsItem[]> => {
     }
     
     const data = await response.json();
-    return processFinnhubArticles(data, "Financial Markets");
+    return processFinnhubArticles(data, "Global Financial Markets");
   } catch (error) {
     console.error('Error fetching Finnhub financial news:', error);
-    return getIndianMockNewsData().financial;
+    return getGlobalMockNewsData().financial;
   }
 };
 
@@ -93,7 +96,7 @@ export const fetchAllNewsData = async (): Promise<NewsData> => {
   } catch (error: any) {
     console.error('Error fetching news data:', error);
     toast.error("Failed to fetch news", { description: "Using demo data instead." });
-    return getIndianMockNewsData();
+    return getGlobalMockNewsData();
   }
 };
 
@@ -111,35 +114,35 @@ function getIndianMockStocksAndSectors() {
         name: 'Tata Consultancy Services', 
         change: 2.45, 
         sentiment: 'bullish' as SentimentType, 
-        headlines: ['TCS Reports Strong Q3 Results', 'TCS Wins Major Banking Deal in Europe'] 
+        headlines: ['TCS Reports Strong Q3 Results with 15% YoY Growth', 'TCS Wins Major Digital Transformation Deal in Europe'] 
       },
       { 
         symbol: 'RELIANCE', 
         name: 'Reliance Industries', 
         change: -1.23, 
         sentiment: 'bearish' as SentimentType, 
-        headlines: ['Reliance Retail Expansion Plans', 'Oil Price Impact on Reliance'] 
+        headlines: ['Reliance Retail Expansion in Tier-2 Cities', 'Oil Price Volatility Impacts Reliance Earnings'] 
       },
       { 
         symbol: 'INFY', 
         name: 'Infosys Limited', 
         change: 3.12, 
         sentiment: 'bullish' as SentimentType, 
-        headlines: ['Infosys AI Platform Launch', 'Strong Digital Transformation Growth'] 
+        headlines: ['Infosys Launches New AI Platform for Enterprise Clients', 'Strong Digital Transformation Revenue Growth Continues'] 
       },
       { 
         symbol: 'HDFCBANK', 
         name: 'HDFC Bank Limited', 
         change: 0.87, 
         sentiment: 'neutral' as SentimentType, 
-        headlines: ['HDFC Bank Merger Updates', 'Digital Banking Initiatives'] 
+        headlines: ['HDFC Bank-HDFC Merger Integration Progressing Well', 'Digital Banking Initiatives Drive Customer Growth'] 
       },
       { 
         symbol: 'BHARTIARTL', 
         name: 'Bharti Airtel Limited', 
         change: 1.95, 
         sentiment: 'bullish' as SentimentType, 
-        headlines: ['5G Rollout Acceleration', 'Africa Operations Growth'] 
+        headlines: ['5G Network Rollout Accelerates Across Major Cities', 'Airtel Africa Operations Show Strong Growth'] 
       }
     ],
     sectors: [
@@ -149,7 +152,8 @@ function getIndianMockStocksAndSectors() {
         sentiment: 'bullish' as SentimentType, 
         topStocks: [
           { symbol: 'TCS', name: 'Tata Consultancy Services', change: 2.45 },
-          { symbol: 'INFY', name: 'Infosys Limited', change: 3.12 }
+          { symbol: 'INFY', name: 'Infosys Limited', change: 3.12 },
+          { symbol: 'WIPRO', name: 'Wipro Limited', change: 1.78 }
         ]
       },
       { 
@@ -158,7 +162,8 @@ function getIndianMockStocksAndSectors() {
         sentiment: 'neutral' as SentimentType, 
         topStocks: [
           { symbol: 'HDFCBANK', name: 'HDFC Bank Limited', change: 0.87 },
-          { symbol: 'ICICIBANK', name: 'ICICI Bank Limited', change: 1.45 }
+          { symbol: 'ICICIBANK', name: 'ICICI Bank Limited', change: 1.45 },
+          { symbol: 'KOTAKBANK', name: 'Kotak Mahindra Bank', change: 0.95 }
         ]
       },
       { 
@@ -167,7 +172,8 @@ function getIndianMockStocksAndSectors() {
         sentiment: 'bearish' as SentimentType, 
         topStocks: [
           { symbol: 'RELIANCE', name: 'Reliance Industries', change: -1.23 },
-          { symbol: 'ONGC', name: 'Oil & Natural Gas Corp', change: -0.89 }
+          { symbol: 'ONGC', name: 'Oil & Natural Gas Corp', change: -0.89 },
+          { symbol: 'IOC', name: 'Indian Oil Corporation', change: -0.34 }
         ]
       },
       { 
@@ -176,59 +182,60 @@ function getIndianMockStocksAndSectors() {
         sentiment: 'bullish' as SentimentType, 
         topStocks: [
           { symbol: 'BHARTIARTL', name: 'Bharti Airtel Limited', change: 1.95 },
-          { symbol: 'IDEA', name: 'Vodafone Idea Limited', change: 2.34 }
+          { symbol: 'IDEA', name: 'Vodafone Idea Limited', change: 2.34 },
+          { symbol: 'JIO', name: 'Jio Platforms Limited', change: 1.67 }
         ]
       }
     ]
   };
 }
 
-function getIndianMockNewsData(): NewsData {
+function getGlobalMockNewsData(): NewsData {
   const mockStocksAndSectors = getIndianMockStocksAndSectors();
   
   return {
     global: [
       { 
         id: 'mock-global-1', 
-        title: 'RBI Keeps Repo Rate Unchanged at 6.5%', 
-        excerpt: 'Reserve Bank of India maintains accommodative stance amid inflation concerns and global economic uncertainty.', 
-        category: 'Economy', 
-        date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
-        source: 'Economic Times', 
+        title: 'Federal Reserve Maintains Interest Rates Amid Global Economic Uncertainty', 
+        excerpt: 'The US Federal Reserve decides to keep interest rates steady as global markets show mixed signals and inflation concerns persist worldwide.', 
+        category: 'Global Economy', 
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        source: 'Reuters', 
         image: '/og-image.png', 
         url: '#', 
         sentiment: 'neutral',
-        tickers: ['RBI']
+        tickers: ['JPM', 'BAC']
       },
       { 
         id: 'mock-global-2', 
-        title: 'India GDP Growth Expected at 6.3% for FY24', 
-        excerpt: 'Government economic survey projects steady growth driven by domestic consumption and investment recovery.', 
-        category: 'Economy', 
-        date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
-        source: 'Business Standard', 
+        title: 'European Central Bank Signals Potential Rate Cuts for 2024', 
+        excerpt: 'ECB President hints at possible monetary policy easing to support eurozone growth amid global economic headwinds.', 
+        category: 'International Markets', 
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        source: 'Financial Times', 
         image: '/og-image.png', 
         url: '#', 
         sentiment: 'bullish'
       },
       { 
         id: 'mock-global-3', 
-        title: 'Monsoon Forecast Positive for Agricultural Sector', 
-        excerpt: 'IMD predicts normal monsoon, boosting hopes for agricultural output and rural demand recovery.', 
-        category: 'Agriculture', 
-        date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
-        source: 'Hindu BusinessLine', 
+        title: 'China PMI Data Shows Manufacturing Sector Recovery', 
+        excerpt: 'Latest purchasing managers index indicates strengthening manufacturing activity in China, boosting global supply chain optimism.', 
+        category: 'Manufacturing', 
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        source: 'Bloomberg', 
         image: '/og-image.png', 
         url: '#', 
         sentiment: 'bullish'
       },
       { 
         id: 'mock-global-4', 
-        title: 'Foreign Portfolio Investment Flows Turn Positive', 
-        excerpt: 'FPIs invest ₹15,000 crores in Indian markets this month after three months of outflows.', 
-        category: 'Investment', 
-        date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
-        source: 'Mint', 
+        title: 'Oil Prices Surge on OPEC+ Production Cut Announcement', 
+        excerpt: 'Crude oil futures climb as OPEC+ members agree to extend production cuts through the second quarter of 2024.', 
+        category: 'Commodities', 
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        source: 'CNBC', 
         image: '/og-image.png', 
         url: '#', 
         sentiment: 'bullish'
@@ -237,51 +244,50 @@ function getIndianMockNewsData(): NewsData {
     financial: [
       { 
         id: 'mock-financial-1', 
-        title: 'Sensex Hits New All-Time High Above 73,000', 
-        excerpt: 'BSE Sensex reaches record levels driven by strong earnings and positive global sentiment.', 
-        category: 'Stock Market', 
-        date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
-        source: 'CNBC TV18', 
+        title: 'S&P 500 Reaches New All-Time High Driven by Tech Rally', 
+        excerpt: 'US stock markets surge to record levels as technology giants report strong quarterly earnings and AI optimism continues.', 
+        category: 'Stock Markets', 
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        source: 'MarketWatch', 
         image: '/og-image.png', 
         url: '#', 
         sentiment: 'bullish',
-        tickers: ['SENSEX', 'TCS', 'RELIANCE']
+        tickers: ['AAPL', 'MSFT', 'GOOGL']
       },
       { 
         id: 'mock-financial-2', 
-        title: 'TCS Announces ₹18,000 Crore Share Buyback', 
-        excerpt: 'India\'s largest IT services company announces significant shareholder return program.', 
-        category: 'Corporate Action', 
-        date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
+        title: 'Tesla Reports Record Quarterly Deliveries Amid EV Market Growth', 
+        excerpt: 'Electric vehicle manufacturer exceeds delivery expectations as global EV adoption accelerates across major markets.', 
+        category: 'Automotive', 
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        source: 'Wall Street Journal', 
+        image: '/og-image.png', 
+        url: '#', 
+        sentiment: 'bullish',
+        tickers: ['TSLA']
+      },
+      { 
+        id: 'mock-financial-3', 
+        title: 'Global Cryptocurrency Market Cap Surpasses $2 Trillion', 
+        excerpt: 'Digital asset markets show renewed strength as institutional adoption grows and regulatory clarity improves worldwide.', 
+        category: 'Cryptocurrency', 
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        source: 'CoinDesk', 
+        image: '/og-image.png', 
+        url: '#', 
+        sentiment: 'bullish'
+      },
+      { 
+        id: 'mock-financial-4', 
+        title: 'Major Banks Report Strong Q4 Earnings Beat Expectations', 
+        excerpt: 'Leading financial institutions post better-than-expected quarterly results driven by robust lending activity and trading revenues.', 
+        category: 'Banking', 
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
         source: 'Financial Express', 
         image: '/og-image.png', 
         url: '#', 
         sentiment: 'bullish',
-        tickers: ['TCS']
-      },
-      { 
-        id: 'mock-financial-3', 
-        title: 'HDFC Bank-HDFC Merger Creates Banking Giant', 
-        excerpt: 'Successful merger creates India\'s largest private sector bank with enhanced market position.', 
-        category: 'Banking', 
-        date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
-        source: 'Money Control', 
-        image: '/og-image.png', 
-        url: '#', 
-        sentiment: 'bullish',
-        tickers: ['HDFCBANK']
-      },
-      { 
-        id: 'mock-financial-4', 
-        title: 'Reliance New Energy Ventures Gets ₹50,000 Crore Investment', 
-        excerpt: 'Major funding round for renewable energy initiatives as India pushes green transition.', 
-        category: 'Energy', 
-        date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
-        source: 'Bloomberg Quint', 
-        image: '/og-image.png', 
-        url: '#', 
-        sentiment: 'bullish',
-        tickers: ['RELIANCE']
+        tickers: ['JPM', 'BAC', 'WFC']
       }
     ],
     trendingStocks: mockStocksAndSectors.trendingStocks,
