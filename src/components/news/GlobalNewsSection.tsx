@@ -1,6 +1,7 @@
 
 import { NewsItem } from '@/types/news';
 import NewsCard from '@/components/NewsCard';
+import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface GlobalNewsSectionProps {
@@ -30,7 +31,12 @@ const GlobalNewsSection = ({ news, isLoading }: GlobalNewsSectionProps) => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Global Economic News</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-semibold">Indian Economic & Global News</h2>
+        <Badge variant="outline" className="bg-blue-500/10 text-blue-600 border-blue-500/20">
+          🌏 Global + India
+        </Badge>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {news.map((item) => (
           <NewsCard

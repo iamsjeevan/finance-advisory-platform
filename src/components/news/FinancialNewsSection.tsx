@@ -32,7 +32,12 @@ const FinancialNewsSection = ({ news, isLoading }: FinancialNewsSectionProps) =>
 
   return (
     <div className="space-y-6">
-      <h2 className="text-xl font-semibold">Financial Market News</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-semibold">Indian Financial Market News</h2>
+        <Badge variant="outline" className="bg-orange-500/10 text-orange-600 border-orange-500/20">
+          🇮🇳 India Focus
+        </Badge>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {news.map((item) => (
           <div key={item.id} className="relative">
@@ -47,7 +52,7 @@ const FinancialNewsSection = ({ news, isLoading }: FinancialNewsSectionProps) =>
             {item.tickers && item.tickers.length > 0 && (
               <div className="absolute top-4 right-4 flex gap-2">
                 {item.tickers.map((ticker) => (
-                  <Badge key={ticker} variant="outline" className="bg-background/80 backdrop-blur-sm">
+                  <Badge key={ticker} variant="outline" className="bg-background/80 backdrop-blur-sm font-mono">
                     {ticker}
                   </Badge>
                 ))}

@@ -33,3 +33,25 @@ export const getSentimentClass = (sentiment: string) => {
       return 'text-gray-500';
   }
 };
+
+// Format Indian currency
+export const formatIndianCurrency = (amount: number): string => {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }).format(amount);
+};
+
+// Format large Indian numbers (Lakhs/Crores)
+export const formatIndianNumber = (num: number): string => {
+  if (num >= 10000000) {
+    return `₹${(num / 10000000).toFixed(1)} Cr`;
+  } else if (num >= 100000) {
+    return `₹${(num / 100000).toFixed(1)} L`;
+  } else if (num >= 1000) {
+    return `₹${(num / 1000).toFixed(1)}K`;
+  }
+  return `₹${num.toLocaleString('en-IN')}`;
+};
